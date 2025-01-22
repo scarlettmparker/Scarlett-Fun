@@ -1,0 +1,130 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #272121;
+  background-image: url('assets/minecraft/images/background.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  overflow-x: none;
+}
+
+p {
+  margin-top: 0;
+}
+
+@font-face {
+  font-family: "Reo Sans";
+  src: url("assets/minecraft/fonts/Reo Sans Light.otf");
+}
+
+.wrapper {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  width: calc(100vw - 10px);
+  max-width: 100%;
+  height: fit-content;
+  left: 50%;
+  top: 4rem;
+  transform: translateX(-50%);
+}
+
+.title {
+  font-family: "Reo Sans";
+  font-size: min(6rem, 20vw);
+  color: #e7e49d;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sub_header {
+  font-size: min(2rem, 8vw);
+  align-self: flex-end;
+  margin-top: -4px;
+}
+
+.life_wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+  padding-bottom: 6rem;
+}
+
+.info_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 600px;
+  width: 100%;
+}
+
+.info {
+  position: relative;
+  box-sizing: border-box;
+  height: fit-content;
+  min-height: 200px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-family: "Reo Sans";
+  font-size: min(1.4rem, 5vw);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.more {
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.more, .input {
+  padding: 5px 12px;
+  border-radius: 10px;
+  background-color: #19191b;
+  color: white;
+  font-family: "Reo Sans";
+  font-size: min(1.4rem, 5vw);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.more:hover {
+  background-color: #DEE5E5;
+  color: #0A2433;
+}
+
+.character_wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: 500px;
+  height: 500px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.canvas {
+  image-rendering: pixelated;
+}
+
+.book {
+  image-rendering: pixelated;
+  position: absolute;
+  margin-top: 4rem;
+  margin-right: 7rem;
+}

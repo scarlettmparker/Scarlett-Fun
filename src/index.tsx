@@ -4,6 +4,7 @@ import { MetaProvider } from "@solidjs/meta";
 
 import Index from "./routes";
 import Spell from "./routes/spell";
+import Minecraft from "./routes/minecraft";
 
 render(
   () => (
@@ -11,6 +12,7 @@ render(
       <Router>
         <Route path="/" component={Index} />
         <Route path="/spell" component={Spell} />
+        <Route path="/minecraft" component={Minecraft} />
        </Router>
     </MetaProvider>
   ),
