@@ -1,5 +1,5 @@
 import { Accessor, Component, createEffect, createSignal, JSX, onMount } from "solid-js";
-import { Application, Assets, Sprite } from "pixi.js";
+import { Application, Assets, Filter, FederatedPointerEvent, Sprite, Ticker, GlProgram, Geometry, Shader, Mesh, Texture, BindGroup } from "pixi.js";
 import styles from './minecraft.module.css';
 
 const BOOK_SIZE = 72;
@@ -468,7 +468,7 @@ async function create_pixi_scene() {
   // on mount ensure that re-renders occur
   const old_wrapper = document.getElementById('pixi_canvas_wrapper')
   if (old_wrapper) {
-    old_wrapper.remove();
+    return;
   }
 
   // create wrapper for custom styling
@@ -477,32 +477,124 @@ async function create_pixi_scene() {
   wrapper.classList.add(styles.pixi_canvas_wrapper);
 
   const app = new Application();
-  await app.init({ backgroundAlpha: 0, resizeTo: window });
+  await app.init({ backgroundAlpha: 0, resizeTo: window, preference: 'webgl' });
 
   wrapper.appendChild(app.canvas);
   document.body.appendChild(wrapper);
 
-  // will be used for enchanted book effect
-  const texture = await Assets.load("/assets/minecraft/images/book.png");
-  const book = new Sprite(texture);
+  const book_texture = await Assets.load('/assets/minecraft/images/book.png');
+  console.log(book_texture);
 
-  book.anchor.set(0.5);
+  const book_geometry = new Geometry({
+    attributes: {
+      aPosition: [
+        -0.5, -0.5,
+        0.5, -0.5,
+        0.5, 0.5,
+        -0.5, 0.5
+      ],
+      aUV: [
+        0, 0,
+        1, 0,
+        1, 1,
+        0, 1
+      ],
+    },
+    indexBuffer: [0, 1, 2, 0, 2, 3]
+  });
+
+  const vertex_shader = `
+    in vec2 aPosition;
+    in vec2 aUV;
+    out vec2 vUV;
+
+    uniform mat3 uProjectionMatrix;
+    uniform mat3 uWorldTransformMatrix;
+    uniform mat3 uTransformMatrix;
+
+    void main() {
+      mat3 mvp = uProjectionMatrix * uWorldTransformMatrix * uTransformMatrix;
+      gl_Position = vec4((mvp * vec3(aPosition, 1.0)).xy, 0.0, 1.0);
+      vUV = aUV;
+    }
+  `;
+
+  const fragment_shader = `
+    precision mediump float;
+    varying vec2 vUV;
+    uniform sampler2D uTexture;
+
+    void main() {
+      vec4 color = texture2D(uTexture, vUV);
+      gl_FragColor = color;
+    }
+  `;
+
+  const hover_fragment_shader = `
+    precision mediump float;
+    varying vec2 vUV;
+    uniform sampler2D uTexture;
+
+    void main() {
+      vec4 color = texture2D(uTexture, vUV);
+      gl_FragColor = vec4(1.0, 0.0, 0.0, color.a);
+    }
+  `
+
+  const default_shader = Shader.from({
+    gl: {
+      vertex: vertex_shader,
+      fragment: fragment_shader,
+    },
+    resources: {
+      uTexture: book_texture.source,
+    }
+  });
+
+  const hover_shader = Shader.from({
+    gl: {
+      vertex: vertex_shader,
+      fragment: hover_fragment_shader,
+    },
+    resources: {
+      uTexture: book_texture.source,
+    }
+  });
+
+  const book = new Mesh({
+    geometry: book_geometry,
+    shader: default_shader,
+  })
+
+  book.interactive = true;
   book.width = BOOK_SIZE;
   book.height = BOOK_SIZE;
 
   window.addEventListener('resize', () => move_book(book));
+  window.addEventListener('scroll', () => move_book(book));
   move_book(book); // on init
+
+  book.onmousemove = function (event) {
+    create_particles(event, book)
+  }
+
+  book.onmouseover = function () {
+    book.shader = hover_shader;
+  }
+
+  book.onmouseleave = function () {
+    book.shader = default_shader;
+  }
 
   app.stage.addChild(book);
 }
 
-
 /**
  * Move the fake (enchanting) book element to the position of the real book.
  * 
- * @param book PixiJS book sprite.
+ * @param book PixiJS book mesh.
  */
-function move_book(book: Sprite) {
+function move_book(book: Mesh<Geometry, Shader>) {
   let real_book!: HTMLImageElement;
   real_book = document.getElementById("real_book") as HTMLImageElement;
 
@@ -510,6 +602,14 @@ function move_book(book: Sprite) {
   book.x = rect.x + (rect.width / 2);
   book.y = rect.y + (rect.height / 2);
 }
+
+/**
+ * Animate particles when hovering over the book.
+ */
+function create_particles(event: FederatedPointerEvent, book: Mesh<Geometry, Shader>) {
+
+}
+
 
 /**
  * Main component for the Minecraft page. Contains the Secret Life component,
@@ -540,13 +640,11 @@ const SecretLife: Component = () => {
   const [skin, set_skin] = createSignal<Skin>({
     url: "/assets/minecraft/images/steve.png", type: "normal"
   });
-
-  let canvas_ref: HTMLCanvasElement | null = null;
+  const [canvas_ref, set_canvas_ref] = createSignal<HTMLCanvasElement | null>(null)
 
   createEffect(() => {
-    if (canvas_ref) {
-      draw_skin(canvas_ref, skin().url);
-    }
+    if (!canvas_ref()) return;
+    draw_skin(canvas_ref()!, skin().url);
   })
 
   createEffect(() => {
@@ -589,7 +687,7 @@ const SecretLife: Component = () => {
           </div>
         </div>
         <Character
-          canvas_ref={(el) => (canvas_ref = el)}
+          canvas_ref={(el) => (set_canvas_ref(el))}
           skin_username={skin_username}
           set_skin_username={set_skin_username}>
         </Character>
