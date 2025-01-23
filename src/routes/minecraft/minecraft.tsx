@@ -1,5 +1,9 @@
-import { Accessor, Component, createEffect, createSignal, onMount } from "solid-js";
+import { Accessor, Component, createEffect, createSignal, JSX, onMount } from "solid-js";
+import { Application, Assets, Sprite } from "pixi.js";
 import styles from './minecraft.module.css';
+
+const BOOK_SIZE = 72;
+const DEBOUNCE_MS = 300;
 
 /**
  * Draws all parts of a player's skin onto a canvas context, including their accessories
@@ -9,18 +13,20 @@ import styles from './minecraft.module.css';
  * @param skin_map - Object mapping part names to their respective skin details.
  * @param draw_accessories - Whether to draw accessory parts of the skin.
  */
-function draw_all_parts(ctx: CanvasRenderingContext2D, img: HTMLImageElement, skin_map: { [key: string]: {
-  sx: number;
-  sy: number;
-  sw: number;
-  sh: number;
-  dx: number;
-  dy: number;
-  dw: number;
-  dh: number;
-  layer?: boolean;
-  mirror?: boolean
-}}, draw_accessories: boolean) {
+function draw_all_parts(ctx: CanvasRenderingContext2D, img: HTMLImageElement, skin_map: {
+  [key: string]: {
+    sx: number;
+    sy: number;
+    sw: number;
+    sh: number;
+    dx: number;
+    dy: number;
+    dw: number;
+    dh: number;
+    layer?: boolean;
+    mirror?: boolean
+  }
+}, draw_accessories: boolean) {
   const body_parts = ['body', 'arm_left', 'arm_right', 'leg_left', 'leg_right'];
   const accessory_parts = ['body_accessory', 'arm_left_accessory', 'arm_right_accessory', 'leg_left_accessory', 'leg_right_accessory'];
 
@@ -444,21 +450,103 @@ async function search_update(skin_username: string): Promise<Skin> {
   return { url: skin_url, type: skin_type };
 }
 
+/**
+ * Debounce for the search update (see details above).
+ * 
+ * @return Promise to a skin object.
+ */
 const debounce_search_update = debounce(async (skin_username: string): Promise<Skin> => {
   const result = search_update(skin_username);
   return result;
-}, 300);
+}, DEBOUNCE_MS);
 
+/**
+ * Create the pixi scene. This is used for the WebGL effects displayed in the
+ * book of enchanting, maybe I will add more. Wrapped in pixi_canvas_wrapper.
+ */
+async function create_pixi_scene() {
+  // on mount ensure that re-renders occur
+  const old_wrapper = document.getElementById('pixi_canvas_wrapper')
+  if (old_wrapper) {
+    old_wrapper.remove();
+  }
+
+  // create wrapper for custom styling
+  const wrapper = document.createElement('div');
+  wrapper.id = 'pixi_canvas_wrapper';
+  wrapper.classList.add(styles.pixi_canvas_wrapper);
+
+  const app = new Application();
+  await app.init({ backgroundAlpha: 0, resizeTo: window });
+
+  wrapper.appendChild(app.canvas);
+  document.body.appendChild(wrapper);
+
+  // will be used for enchanted book effect
+  const texture = await Assets.load("/assets/minecraft/images/book.png");
+  const book = new Sprite(texture);
+
+  book.anchor.set(0.5);
+  book.width = BOOK_SIZE;
+  book.height = BOOK_SIZE;
+
+  window.addEventListener('resize', () => move_book(book));
+  move_book(book); // on init
+
+  app.stage.addChild(book);
+}
+
+
+/**
+ * Move the fake (enchanting) book element to the position of the real book.
+ * 
+ * @param book PixiJS book sprite.
+ */
+function move_book(book: Sprite) {
+  let real_book!: HTMLImageElement;
+  real_book = document.getElementById("real_book") as HTMLImageElement;
+
+  const rect = real_book.getBoundingClientRect();
+  book.x = rect.x + (rect.width / 2);
+  book.y = rect.y + (rect.height / 2);
+}
+
+/**
+ * Main component for the Minecraft page. Contains the Secret Life component,
+ * the background component and the Pixi.JS context.
+ * 
+ * @return JSX Component of the Minecraft page.
+ */
 const Minecraft: Component = () => {
+  return (
+    <>
+      <SecretLife>
+      </SecretLife>
+      <Background>
+        <></>
+      </Background>
+    </>
+  )
+};
+
+/**
+ * Main Secret Life component. Contains all the information and skin processing,
+ * but does not deal with any Pixi.JS stuff.
+ * 
+ * @return JSX Component for the Secret Life page.
+ */
+const SecretLife: Component = () => {
   const [skin_username, set_skin_username] = createSignal("");
   const [skin, set_skin] = createSignal<Skin>({
     url: "/assets/minecraft/images/steve.png", type: "normal"
   });
 
-  let canvas_ref!: HTMLCanvasElement;
+  let canvas_ref: HTMLCanvasElement | null = null;
 
   createEffect(() => {
-    draw_skin(canvas_ref, skin().url);
+    if (canvas_ref) {
+      draw_skin(canvas_ref, skin().url);
+    }
   })
 
   createEffect(() => {
@@ -500,20 +588,68 @@ const Minecraft: Component = () => {
             </button>
           </div>
         </div>
-        <div class={styles.character_wrapper}>
-          <img class={styles.book} src="/assets/minecraft/images/book.png" alt="book"
-            width={72} height={72} draggable={false}>
-          </img>
-          <canvas class={styles.canvas} ref={canvas_ref} width={161} height={323}>
-          </canvas>
-          {/* i hate html stupid oninput instead of onchange */}
-          <input class={styles.input} placeholder={"Enter a username..."} value={skin_username()}
-            oninput={(e) => { set_skin_username(e.target.value) }} spellcheck={false}>
-          </input>
-        </div>
+        <Character
+          canvas_ref={(el) => (canvas_ref = el)}
+          skin_username={skin_username}
+          set_skin_username={set_skin_username}>
+        </Character>
       </div>
     </div>
   )
-};
+}
+
+interface CharacterProps {
+  canvas_ref: (el: HTMLCanvasElement | null) => void;
+  skin_username: Accessor<string>;
+  set_skin_username: (skin_username: string) => void;
+}
+
+/**
+ * Character component mapping the Minecraft character sprite to 2D space.
+ * 
+ * @param canvas_ref Callback function for the reference to the canvas.
+ * @param skin_username Accessor of the username of the player's skin to map.
+ * @param set_skin_username Setter for the username of the player.
+ * 
+ * @return JSX Component of the Minecraft character.
+ */
+const Character: Component<CharacterProps> = (props) => {
+  return (
+    <div class={styles.character_wrapper}>
+      <img class={styles.book} src="/assets/minecraft/images/book.png" alt="book"
+        id="real_book" width={BOOK_SIZE} height={BOOK_SIZE} draggable={false}>
+      </img>
+      <canvas class={styles.canvas} ref={props.canvas_ref} width={161} height={323}>
+      </canvas>
+      {/* i hate html stupid oninput instead of onchange */}
+      <input class={styles.input} placeholder={"Enter a username..."} value={props.skin_username()}
+        oninput={(e) => { props.set_skin_username(e.target.value) }} spellcheck={false}>
+      </input>
+    </div>
+  )
+}
+
+interface BackgroundProps {
+  children: JSX.Element;
+}
+
+/**
+ * Background wrapper to set the background image of the page.
+ * 
+ * @param children Any children found within the wrapper.
+ * 
+ * @return JSX Component of the background wrapper.
+ */
+const Background: Component<BackgroundProps> = (props) => {
+  onMount(() => {
+    create_pixi_scene();
+  })
+
+  return (
+    <div class={styles.background}>
+      {props.children}
+    </div>
+  )
+}
 
 export default Minecraft;

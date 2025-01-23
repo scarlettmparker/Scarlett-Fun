@@ -6,6 +6,8 @@ import Index from "./routes";
 import Spell from "./routes/spell";
 import Minecraft from "./routes/minecraft";
 
+import './index.css';
+
 render(
   () => (
     <MetaProvider>
