@@ -1,5 +1,5 @@
 import { Accessor, Component, createEffect, createSignal, JSX, onMount } from "solid-js";
-import { Application, Assets, Filter, FederatedPointerEvent, Sprite, Ticker, GlProgram, Geometry, Shader, Mesh, Texture, BindGroup } from "pixi.js";
+import { Application, Assets, FederatedPointerEvent, Geometry, Shader, Mesh, Ticker, BindGroup, GlProgram, GpuProgram } from "pixi.js";
 import styles from './minecraft.module.css';
 
 const BOOK_SIZE = 72;
@@ -483,7 +483,6 @@ async function create_pixi_scene() {
   document.body.appendChild(wrapper);
 
   const book_texture = await Assets.load('/assets/minecraft/images/book.png');
-  console.log(book_texture);
 
   const book_geometry = new Geometry({
     attributes: {
@@ -500,7 +499,7 @@ async function create_pixi_scene() {
         0, 1
       ],
     },
-    indexBuffer: [0, 1, 2, 0, 2, 3]
+    indexBuffer: [0, 1, 2, 0, 2, 3],
   });
 
   const vertex_shader = `
@@ -519,51 +518,149 @@ async function create_pixi_scene() {
     }
   `;
 
-  const fragment_shader = `
-    precision mediump float;
-    varying vec2 vUV;
+  const glow_fragment_shader = `
+    #version 300 es\n
     uniform sampler2D uTexture;
+    uniform float uTime;
+    uniform float uOpacity;
+    in vec2 vUV;
+    out vec4 fragColor;
 
-    void main() {
-      vec4 color = texture2D(uTexture, vUV);
-      gl_FragColor = color;
+    // perlin noise function
+    vec3 mod289(vec3 x) {
+      return x - floor(x * (1.0 / 289.0)) * 289.0;
     }
-  `;
 
-  const hover_fragment_shader = `
-    precision mediump float;
-    varying vec2 vUV;
-    uniform sampler2D uTexture;
+    vec4 mod289(vec4 x) {
+      return x - floor(x * (1.0 / 289.0)) * 289.0;
+    }
+
+    vec4 permute(vec4 x) {
+      return mod289(((x*34.0)+1.0)*x);
+    }
+
+    vec4 taylorInvSqrt(vec4 r) {
+      return 1.79284291400159 - 0.85373472095314 * r;
+    }
+
+    float snoise(vec3 v) {
+      const vec2 C = vec2(1.0/6.0, 1.0/3.0);
+      const vec4 D = vec4(0.0, 0.5, 1.0, 2.0);
+
+      vec3 i = floor(v + dot(v, C.yyy));
+      vec3 x0 = v - i + dot(i, C.xxx);
+
+      vec3 g = step(x0.yzx, x0.xyz);
+      vec3 l = 1.0 - g;
+      vec3 i1 = min(g.xyz, l.zxy);
+      vec3 i2 = max(g.xyz, l.zxy);
+
+      vec3 x1 = x0 - i1 + C.xxx;
+      vec3 x2 = x0 - i2 + C.yyy;
+      vec3 x3 = x0 - 1.0 + 3.0 * C.xxx;
+
+      i = mod289(i);
+      vec4 p = permute(permute(permute(
+                i.z + vec4(0.0, i1.z, i2.z, 1.0))
+              + i.y + vec4(0.0, i1.y, i2.y, 1.0))
+              + i.x + vec4(0.0, i1.x, i2.x, 1.0));
+
+      vec3 ns = 1.0/7.0 * D.wyz - D.xzx;
+      vec4 j = p - 49.0 * floor(p * ns.z * ns.z);
+
+      vec4 x_ = floor(j * ns.z);
+      vec4 y_ = floor(j - 7.0 * x_);
+
+      vec4 x = x_ * ns.x + ns.yyyy;
+      vec4 y = y_ * ns.x + ns.yyyy;
+      vec4 h = 1.0 - abs(x) - abs(y);
+
+      vec4 b0 = vec4(x.xy, y.xy);
+      vec4 b1 = vec4(x.zw, y.zw);
+
+      vec4 s0 = floor(b0)*2.0 + 1.0;
+      vec4 s1 = floor(b1)*2.0 + 1.0;
+      vec4 sh = -step(h, vec4(0.0));
+
+      vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy;
+      vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww;
+
+      vec3 p0 = vec3(a0.xy, h.x);
+      vec3 p1 = vec3(a0.zw, h.y);
+      vec3 p2 = vec3(a1.xy, h.z);
+      vec3 p3 = vec3(a1.zw, h.w);
+
+      vec4 norm0 = taylorInvSqrt(vec4(dot(p0, p0), dot(p1, p1), dot(p2, p2), dot(p3, p3)));
+      p0 *= norm0.x;
+      p1 *= norm0.y;
+      p2 *= norm0.z;
+      p3 *= norm0.w;
+
+      vec4 m = max(0.6 - vec4(dot(x0, x0), dot(x1, x1), dot(x2, x2), dot(x3, x3)), 0.0);
+      m = m * m;
+      return 42.0 * dot(m * m, vec4(dot(p0, x0), dot(p1, x1), dot(p2, x2), dot(p3, x3)));
+    }
 
     void main() {
-      vec4 color = texture2D(uTexture, vUV);
-      gl_FragColor = vec4(1.0, 0.0, 0.0, color.a);
+      vec4 baseColor = texture(uTexture, vUV);
+
+      // calculate Perlin noise
+      float noise = snoise(vec3(vUV * 3.0, uTime * 1.5));
+      vec3 overlayColor = vec3(0.25 * uOpacity, 0.05 * uOpacity, 0.6 * uOpacity) * (noise + 0.5);
+
+      vec4 finalColor;
+      for (int i = 0; i < 3; i++) {
+        finalColor[i] = 1.0 - (1.0 - baseColor[i]  * uOpacity) * (1.0 - overlayColor[i]);
+      }
+      finalColor.a = baseColor.a * 0.7 * uOpacity;
+
+      vec3 edgeGlow = vec3(0.05 * uOpacity, 0.03 * uOpacity, 0.4 * uOpacity);
+      if (baseColor.a > 0.9) {
+        finalColor.rgb += edgeGlow.rgb;
+      }
+
+      // pulsating pink overlay
+      float pulsate = 0.5 + 0.5 * sin(0.5);
+      vec4 pulsatingOverlay = vec4(1.0 * uOpacity, 0.2 * uOpacity, 0.8 * uOpacity, 0.2 * uOpacity) * pulsate;
+
+      finalColor.rgb += pulsatingOverlay.rgb * 0.2 * uOpacity;
+      finalColor = mix(finalColor, pulsatingOverlay, pulsatingOverlay.a);
+
+      finalColor.a *= 0.5;
+      if (finalColor.a < 0.1) {
+        discard;
+      }
+      fragColor = finalColor;
     }
   `
 
-  const default_shader = Shader.from({
-    gl: {
-      vertex: vertex_shader,
-      fragment: fragment_shader,
-    },
-    resources: {
-      uTexture: book_texture.source,
-    }
-  });
+  const glow_shader_glprogram = new GlProgram({
+    vertex: vertex_shader,
+    fragment: glow_fragment_shader
+  })
 
-  const hover_shader = Shader.from({
-    gl: {
-      vertex: vertex_shader,
-      fragment: hover_fragment_shader,
-    },
+  const glow_shader = new Shader({
+    glProgram: glow_shader_glprogram,
     resources: {
+      timeUniforms: {
+        uTime: {
+          value: 0.0,
+          type: 'f32'
+        }
+      },
+      opacityUniforms: {
+        uOpacity: {
+          value: 0.0,
+          type: 'f32'
+        }
+      },
       uTexture: book_texture.source,
-    }
+    },
   });
 
   const book = new Mesh({
     geometry: book_geometry,
-    shader: default_shader,
+    shader: glow_shader
   })
 
   book.interactive = true;
@@ -578,15 +675,47 @@ async function create_pixi_scene() {
     create_particles(event, book)
   }
 
-  book.onmouseover = function () {
-    book.shader = hover_shader;
-  }
+  let fade_interval: NodeJS.Timeout;
 
+  const FADE_TIME = 16;
+  const FADE_STEP = 0.04;
+  
+  function fade_in() {
+    clearInterval(fade_interval);
+
+    fade_interval = setInterval(() => {
+      if (glow_shader.resources.opacityUniforms.uniforms.uOpacity < 1.0) {
+        glow_shader.resources.opacityUniforms.uniforms.uOpacity += FADE_STEP;
+      } else {
+        clearInterval(fade_interval);
+      }
+    }, FADE_TIME);
+  }
+  
+  function fade_out() {
+    clearInterval(fade_interval);
+    
+    fade_interval = setInterval(() => {
+      if (glow_shader.resources.opacityUniforms.uniforms.uOpacity >= 0.0) {
+        glow_shader.resources.opacityUniforms.uniforms.uOpacity -= FADE_STEP;
+      } else {
+        clearInterval(fade_interval);
+      }
+    }, FADE_TIME);
+  }
+  
+  book.onmouseover = function () {
+    fade_in();
+  }
+  
   book.onmouseleave = function () {
-    book.shader = default_shader;
+    fade_out();
   }
 
   app.stage.addChild(book);
+  app.ticker.add(() => {
+    glow_shader.resources.timeUniforms.uniforms.uTime += 0.01;
+  })
 }
 
 /**
