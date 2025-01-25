@@ -1,9 +1,18 @@
-import { Accessor, Component, createEffect, createSignal, JSX, onMount } from "solid-js";
-import { Application, Assets, FederatedPointerEvent, Geometry, Shader, Mesh, Ticker, BindGroup, GlProgram, GpuProgram } from "pixi.js";
+import { Accessor, Component, createEffect, createMemo, createSignal, JSX, onCleanup, onMount } from "solid-js";
+import { Application, Assets, FederatedPointerEvent, Geometry, Shader, Mesh, GlProgram } from "pixi.js";
+import { Title } from "@solidjs/meta";
+import { Portal } from "solid-js/web";
 import styles from './minecraft.module.css';
 
+// PixiJS consts
 const BOOK_SIZE = 72;
 const DEBOUNCE_MS = 300;
+const FADE_TIME = 16;
+const FADE_STEP = 0.04;
+
+// Secret Life
+const STEVE_URL = "/assets/minecraft/images/steve.png";
+const IMAGE_COUNT = 6;
 
 /**
  * Draws all parts of a player's skin onto a canvas context, including their accessories
@@ -331,7 +340,7 @@ function initialize_canvas_context(canvas: HTMLCanvasElement) {
  * @canvas Canvas element to draw the skin onto.
  * @skin_url URL to the image of the skin.
  */
-async function draw_skin(canvas: HTMLCanvasElement, skin_url: string = "/assets/minecraft/images/steve.png") {
+async function draw_skin(canvas: HTMLCanvasElement, skin_url: string = STEVE_URL) {
   const ctx = initialize_canvas_context(canvas);
   if (!ctx) return;
 
@@ -438,7 +447,7 @@ async function search_update(skin_username: string): Promise<Skin> {
   const uuid = await get_uuid(skin_username);
   if (uuid == "-1") {
     // return default skin if error
-    return { url: "/assets/minecraft/images/steve.png", type: "normal" };
+    return { url: STEVE_URL, type: "normal" };
   }
 
   const player_data = await get_skin(uuid);
@@ -465,11 +474,6 @@ const debounce_search_update = debounce(async (skin_username: string): Promise<S
  * book of enchanting, maybe I will add more. Wrapped in pixi_canvas_wrapper.
  */
 async function create_pixi_scene() {
-  // on mount ensure that re-renders occur
-  const old_wrapper = document.getElementById('pixi_canvas_wrapper')
-  if (old_wrapper) {
-    return;
-  }
 
   // create wrapper for custom styling
   const wrapper = document.createElement('div');
@@ -483,7 +487,6 @@ async function create_pixi_scene() {
   document.body.appendChild(wrapper);
 
   const book_texture = await Assets.load('/assets/minecraft/images/book.png');
-
   const book_geometry = new Geometry({
     attributes: {
       aPosition: [
@@ -518,6 +521,11 @@ async function create_pixi_scene() {
     }
   `;
 
+  /**
+   * Fragment shader to display the enchantment effect on the book
+   * Uses perlin noise that changes with time to give an animated "enchanted" effect,
+   * similar to the one used in Minecraft (except it's actually quite different BUT IDC).
+   */
   const glow_fragment_shader = `
     #version 300 es\n
     uniform sampler2D uTexture;
@@ -639,6 +647,7 @@ async function create_pixi_scene() {
     fragment: glow_fragment_shader
   })
 
+  // enchanted book shader
   const glow_shader = new Shader({
     glProgram: glow_shader_glprogram,
     resources: {
@@ -667,19 +676,35 @@ async function create_pixi_scene() {
   book.width = BOOK_SIZE;
   book.height = BOOK_SIZE;
 
+  // ensure pixi js book always follows real book on screen
   window.addEventListener('resize', () => move_book(book));
   window.addEventListener('scroll', () => move_book(book));
+
+  let last_scroll_bar = document.documentElement.scrollHeight > document.documentElement.clientHeight;
+  const observer = new ResizeObserver(() => {
+    const current_scroll_bar = document.documentElement.scrollHeight > document.documentElement.clientHeight;
+    if (current_scroll_bar != last_scroll_bar) {
+      last_scroll_bar = current_scroll_bar;
+      move_book(book);
+    }
+  });
+  observer.observe(document.documentElement);
+
   move_book(book); // on init
 
   book.onmousemove = function (event) {
     create_particles(event, book)
   }
 
+  /**
+   * Allow book to fade in an out, this works by creating a timeout that will slowly
+   * increase or decrease the opacity uniform in the fragment shader until it
+   * reaches 1 (fade in) or 0 (fade out). Values in the fragment shader are then
+   * multiplied by this opacity value to ensure that it fades in and out correctly.
+   * 
+   * Default FADE_STEP is 0.04 and default FADE_TIME is 16 (ms between steps)
+   */
   let fade_interval: NodeJS.Timeout;
-
-  const FADE_TIME = 16;
-  const FADE_STEP = 0.04;
-  
   function fade_in() {
     clearInterval(fade_interval);
 
@@ -691,10 +716,10 @@ async function create_pixi_scene() {
       }
     }, FADE_TIME);
   }
-  
+
   function fade_out() {
     clearInterval(fade_interval);
-    
+
     fade_interval = setInterval(() => {
       if (glow_shader.resources.opacityUniforms.uniforms.uOpacity >= 0.0) {
         glow_shader.resources.opacityUniforms.uniforms.uOpacity -= FADE_STEP;
@@ -703,11 +728,11 @@ async function create_pixi_scene() {
       }
     }, FADE_TIME);
   }
-  
+
   book.onmouseover = function () {
     fade_in();
   }
-  
+
   book.onmouseleave = function () {
     fade_out();
   }
@@ -719,7 +744,7 @@ async function create_pixi_scene() {
 }
 
 /**
- * Move the fake (enchanting) book element to the position of the real book.
+ * Move the fake (enchanted) book element to the position of the real book.
  * 
  * @param book PixiJS book mesh.
  */
@@ -749,10 +774,10 @@ function create_particles(event: FederatedPointerEvent, book: Mesh<Geometry, Sha
 const Minecraft: Component = () => {
   return (
     <>
+      <Title>Secret Life</Title>
       <SecretLife>
       </SecretLife>
       <Background>
-        <></>
       </Background>
     </>
   )
@@ -767,9 +792,10 @@ const Minecraft: Component = () => {
 const SecretLife: Component = () => {
   const [skin_username, set_skin_username] = createSignal("");
   const [skin, set_skin] = createSignal<Skin>({
-    url: "/assets/minecraft/images/steve.png", type: "normal"
+    url: STEVE_URL, type: "normal"
   });
   const [canvas_ref, set_canvas_ref] = createSignal<HTMLCanvasElement | null>(null)
+  const [large_image, set_large_image] = createSignal(-1);
 
   createEffect(() => {
     if (!canvas_ref()) return;
@@ -786,40 +812,280 @@ const SecretLife: Component = () => {
   })
 
   return (
-    <div class={styles.wrapper}>
-      <span class={styles.title}>
-        Secret Life
-        <span class={styles.sub_header}>
-          Tue 4 Jun - Tue 16 Jul
+    <>
+      {large_image() != -1 &&
+        <Portal>
+          <LargeImage
+            large_image={large_image}
+            set_large_image={set_large_image}
+          >
+          </LargeImage>
+        </Portal>
+      }
+      <div class={styles.wrapper}>
+        <span class={styles.title}>
+          Secret Life
+          <span class={styles.sub_header}>
+            Tue 4 Jun - Tue 16 Jul
+          </span>
         </span>
-      </span>
-      <div class={styles.life_wrapper}>
-        <div class={styles.info_wrapper}>
-          <div class={styles.info}>
-            <p>
-              Secret Life was a 7 week long Minecraft event hosted for students at the University of Exeter, running once a week with 30 active players a session.
-            </p>
-            <p>
-              In Secret Life, players are assigned a task at the start of every session that they complete as discretely as possible.
-            </p>
-            <p>
-              Across the 7 sessions, over 250 tasks were written and distributed. Tasks usually involve doing something social, which helps bring players together.
-            </p>
-            <button class={styles.more}>
-              Read More
-            </button>
+        <div class={styles.life_wrapper}>
+          <div class={styles.info_wrapper}>
+            <GameInfo>
+              <MoreGameInfo set_large_image={set_large_image}>
+              </MoreGameInfo>
+            </GameInfo>
+            <div class={styles.info}>
+              <button class={`${styles.button} ${styles.more}`}>
+                Read More
+              </button>
+            </div>
           </div>
-          <div class={styles.info}>
-            <button class={styles.more}>
-              Read More
-            </button>
-          </div>
+          <Character
+            canvas_ref={(el) => (set_canvas_ref(el))}
+            skin_username={skin_username}
+            set_skin_username={set_skin_username}>
+          </Character>
         </div>
-        <Character
-          canvas_ref={(el) => (set_canvas_ref(el))}
-          skin_username={skin_username}
-          set_skin_username={set_skin_username}>
-        </Character>
+      </div>
+    </>
+  );
+}
+
+interface LargeImageProps {
+  large_image: Accessor<number>;
+  set_large_image: (large_image: number) => void;
+}
+
+/**
+ * Component for the large image that displays when clicking on an image.
+ * 
+ * @param large_image Accessor for the current large image displaying.
+ * @param set_large_image Setter for the current large image.
+ * 
+ * @return JSX Component of the large image.
+ */
+const LargeImage: Component<LargeImageProps> = (props) => {
+  const image_path = () => `assets/minecraft/gallery/large/${props.large_image()}.png`;
+
+  const increment_image = (e: MouseEvent, direction: boolean) => {
+    e.stopPropagation();
+    if (direction) {
+      props.set_large_image((props.large_image() + 1) % IMAGE_COUNT);
+    } else {
+      props.set_large_image((props.large_image() + IMAGE_COUNT - 1) % IMAGE_COUNT);
+    }
+  };
+
+  return (
+    <div class={styles.large_image_wrapper} onclick={() => props.set_large_image(-1)}>
+      <button class={`${styles.button} ${styles.close_button}`} onclick={() => props.set_large_image(-1)}>x</button>
+      <img
+        class={styles.large_image}
+        src={image_path()}
+        alt="Large image"
+        onclick={(e) => {
+          e.stopPropagation();
+          window.open(image_path());
+        }}
+      />
+      <button class={`${styles.button} ${styles.large_left_button}`} onclick={(e) => increment_image(e, false)}>
+        {"<"}
+      </button>
+      <button class={`${styles.button} ${styles.large_right_button}`} onclick={(e) => increment_image(e, true)}>
+        {">"}
+      </button>
+    </div>
+  );
+};
+
+interface GameInfoProps {
+  children: JSX.Element;
+}
+
+const GameInfo: Component<GameInfoProps> = (props) => {
+  const [menu_open, set_menu_open] = createSignal(false);
+
+  return (
+    <div class={styles.info}>
+      <p>
+        Secret Life was a 7 week long Minecraft event hosted for students at the University of Exeter, running once a week with 30 active players a session.
+      </p>
+      <p>
+        In Secret Life, players are assigned a task at the start of every session that they complete as discretely as possible.
+      </p>
+      <p>
+        Across the 7 sessions, over 250 tasks were written and distributed. Tasks usually involve doing something social, which helps bring players together.
+      </p>
+      <button class={`${styles.button} ${styles.more}`} onclick={() => set_menu_open(!menu_open())}>
+        {
+          menu_open() ? "See Less" : "Read More"
+        }
+      </button>
+      {
+        menu_open() && props.children
+      }
+    </div>
+  )
+}
+
+interface MoreGameInfoProps {
+  set_large_image: (large_image: number) => void;
+}
+
+const MoreGameInfo: Component<MoreGameInfoProps> = (props) => {
+  const [current_menu, set_current_menu] = createSignal(1);
+  const [current_image, set_current_image] = createSignal(0);
+
+  const menus = ["Plugin", "Gallery", "Tasks", "Stats"];
+
+  return (
+    <div class={styles.more_wrapper}>
+      <div class={styles.nav_bar}>
+        {menus.map((menu, index) => {
+          return (
+            <span class={`${styles.nav_bar_item} ${index == current_menu() && styles.nav_bar_item_selected}`}
+              onclick={() => set_current_menu(index)}>
+              {menu}
+            </span>
+          )
+        })}
+      </div>
+      {
+        (() => {
+          switch (current_menu()) {
+            case 0:
+              return (
+                <PluginInfo>
+                </PluginInfo>
+              );
+            case 1:
+              return (
+                <Gallery
+                  current_image={current_image}
+                  set_current_image={set_current_image}
+                  set_large_image={props.set_large_image}
+                >
+                </Gallery>
+              );
+            case 2:
+              return (
+                <>
+
+                </>
+              );
+            case 3:
+              return (
+                <>
+
+                </>
+              );
+            default:
+              return null;
+          }
+        })()
+      }
+    </div>
+  );
+}
+
+/**
+ * Plugin Info component detailing the info about the plugin itself.
+ * 
+ * @return JSX Component of the plugin info.
+ */
+const PluginInfo: Component = () => {
+  let lives_text_ref!: HTMLSpanElement;
+
+  // life animation that changes colour when hovering over "lives" text
+  const handle_life_animation = () => {
+    let mouse_over = false;
+
+    const handle_mouse_enter = () => {
+      mouse_over = true;
+      lives_text_ref.classList.add(styles.color_switch);
+    };
+
+    const handle_mouse_leave = () => {
+      mouse_over = false;
+    }
+
+    const handle_animation_iteration = () => {
+      if (!mouse_over) {
+        lives_text_ref.classList.remove(styles.color_switch);
+      }
+    }
+
+    lives_text_ref.addEventListener('mouseenter', handle_mouse_enter);
+    lives_text_ref.addEventListener('mouseleave', handle_mouse_leave);
+    lives_text_ref.addEventListener('animationiteration', handle_animation_iteration);
+
+    return () => {
+      lives_text_ref.removeEventListener('mouseenter', handle_mouse_enter);
+      lives_text_ref.removeEventListener('mouseleave', handle_mouse_leave);
+      lives_text_ref.removeEventListener('animationiteration', handle_animation_iteration);
+    }
+  };
+
+  onMount(() => {
+    handle_life_animation();
+  })
+
+  return (
+    <div class={styles.description}>
+      <p>
+        Secret Life was made possible through a custom Minecraft plugin that was developed for the event.
+      </p>
+      <p>
+        The Secret Life plugin was used to manage <span ref={lives_text_ref} class={styles.lives_text}>
+          lives
+        </span>, distribute tasks, gather player data and house a variety of other custom features that can be found on the
+        <a href={"https://github.com/scarlettmparker/Secret-Life"} target="_blank">GitHub repository</a>.
+      </p>
+      <p>
+        Developed in Java over the course of a few weeks, this plugin can be used on any 1.15+ Minecraft server that supports Spigot plugins.
+      </p>
+    </div>
+  )
+}
+
+interface GalleryProps {
+  current_image: Accessor<number>;
+  set_current_image: (image: number) => void;
+  set_large_image: (large_image: number) => void;
+}
+
+/**
+ * Gallery component displaying a list of images captured throughout Secret Life.
+ * 
+ * @param current_image Accessor for the current image to display.
+ * @param set_current_image Setter for the current image.
+ * @param set_large_image Setter for the large image (mmm yummy prop drilling).
+ * 
+ * @return JSX Component of the gallery.
+ */
+const Gallery: Component<GalleryProps> = (props) => {
+  const increment_image = (direction: boolean) => {
+    if (direction) {
+      props.set_current_image((props.current_image() + 1) % IMAGE_COUNT);
+    } else {
+      props.set_current_image((props.current_image() - 1 + IMAGE_COUNT) % IMAGE_COUNT);
+    }
+  }
+
+  return (
+    <div class={styles.description_gallery}>
+      <button class={`${styles.button} ${styles.left_button}`}
+        onclick={() => increment_image(false)}>{"<"}</button>
+      <button class={`${styles.button} ${styles.right_button}`}
+        onclick={() => increment_image(true)}>{">"}</button>
+      <div class={styles.image_wrapper}>
+        <img
+          class={styles.image}
+          src={`assets/minecraft/gallery/small/${props.current_image()}.png`}
+          draggable={false}
+          onclick={() => props.set_large_image(props.current_image())}
+        ></img>
       </div>
     </div>
   )
@@ -853,30 +1119,30 @@ const Character: Component<CharacterProps> = (props) => {
         oninput={(e) => { props.set_skin_username(e.target.value) }} spellcheck={false}>
       </input>
     </div>
-  )
-}
-
-interface BackgroundProps {
-  children: JSX.Element;
+  );
 }
 
 /**
  * Background wrapper to set the background image of the page.
  * 
- * @param children Any children found within the wrapper.
- * 
  * @return JSX Component of the background wrapper.
  */
-const Background: Component<BackgroundProps> = (props) => {
+const Background: Component = () => {
   onMount(() => {
     create_pixi_scene();
   })
 
+  onCleanup(() => {
+    const old_wrapper = document.getElementById('pixi_canvas_wrapper');
+    if (old_wrapper) {
+      old_wrapper.remove();
+    }
+  })
+
   return (
     <div class={styles.background}>
-      {props.children}
     </div>
-  )
+  );
 }
 
 export default Minecraft;

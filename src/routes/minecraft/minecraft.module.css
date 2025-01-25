@@ -1,5 +1,25 @@
 p {
   margin-top: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+  transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+  color: #e7e49d;
 }
 
 @font-face {
@@ -32,20 +52,49 @@ p {
 }
 
 .wrapper {
-  z-index: -1;
   position: absolute;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: -1;
   gap: 3rem;
   width: calc(100vw - 10px);
   max-width: 100%;
   height: fit-content;
   left: 50%;
   top: 4rem;
-  transform: translateX(-50%);
   overflow-x: none;
+  transform: translateX(-50%);
+}
+
+.large_image_wrapper {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  backdrop-filter: blur(5px);
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.close_button {
+  position: absolute;
+  right: 1.5rem;
+  top: 1rem;
+  z-index: 1;
+}
+
+.large_image {
+  position: fixed;
+  width: 90%;
+  height: 90%;
+  object-fit: cover;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .title {
@@ -66,7 +115,6 @@ p {
 .life_wrapper {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
   justify-content: center;
   gap: 2rem;
   width: 100%;
@@ -91,7 +139,7 @@ p {
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
   font-family: "Reo Sans";
-  font-size: min(1.4rem, 5vw);
+  font-size: min(1.4rem, 6vw);
   border: 2px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -100,23 +148,153 @@ p {
   bottom: -15px;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.button {
   cursor: pointer;
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
-.more, .input {
+.button,
+.input {
   padding: 5px 12px;
   border-radius: 10px;
   background-color: #19191b;
   color: white;
   font-family: "Reo Sans";
-  font-size: min(1.4rem, 5vw);
+  font-size: min(1.4rem, 6vw);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.more:hover {
+.button:hover {
   background-color: #DEE5E5;
   color: #0A2433;
+}
+
+.more_wrapper {
+  margin-top: 2rem;
+  left: 50%;
+  width: 90%;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  transform: translateX(-50%);
+}
+
+.nav_bar {
+  width: 90%;
+  left: 50%;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  transform: translateX(-50%);
+}
+
+.nav_bar_item {
+  user-select: none;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.nav_bar_item:hover,
+.nav_bar_item_selected {
+  color: #e7e49d;
+}
+
+.description,
+.description_gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: fit-content;
+  overflow: hidden;
+  min-height: 300px;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.description {
+  padding: 10px 15px;
+}
+
+.description_gallery {
+  padding: 10px;
+}
+
+@keyframes color_switch {
+  0% {
+    color: #FFFFFF;
+  }
+
+  25% {
+    color: #28C878;
+  }
+
+  50% {
+    color: #F4F19D;
+  }
+
+  75% {
+    color: #C82843;
+  }
+
+  100% {
+    color: #FFFFFF;
+  }
+}
+
+.color_switch {
+  animation: color_switch 3s infinite;
+}
+
+.lives_text {
+  transition: color 1s;
+}
+
+.left_button,
+.right_button,
+.large_left_button,
+.large_right_button {
+  position: absolute;
+}
+
+.large_left_button,
+.large_right_button {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.large_left_button {
+  left: 1.5rem;
+}
+
+.large_right_button {
+  right: 1.5rem;
+}
+
+.left_button {
+  left: -1rem;
+}
+
+.right_button {
+  right: -1rem;
+}
+
+.image_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.image {
+  object-fit: cover;
 }
 
 .character_wrapper {
@@ -124,7 +302,8 @@ p {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  margin-top: 1rem;
+  gap: 2rem;
   width: 500px;
   height: 500px;
   background-color: rgba(0, 0, 0, 0.5);
