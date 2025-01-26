@@ -12,7 +12,7 @@ const FADE_STEP = 0.04;
 // Secret Life
 const STEVE_URL = "/assets/minecraft/images/steve.png";
 const IMAGE_COUNT = 6;
-const MAX_DESCRIPTION_LENGTH = 260;
+const MAX_DESC_LINES = 7;
 
 /**
  * Draws all parts of a player's skin onto a canvas context, including their accessories
@@ -688,8 +688,8 @@ async function create_pixi_scene() {
       move_book(book);
     }
   });
-  observer.observe(document.documentElement);
 
+  observer.observe(document.documentElement);
   move_book(book); // on init
 
   book.onmousemove = function (event) {
@@ -957,6 +957,7 @@ interface MoreGameInfoProps {
  */
 const MoreGameInfo: Component<MoreGameInfoProps> = (props) => {
   const [current_image, set_current_image] = createSignal(0);
+  const [current_task, set_current_task] = createSignal(0);
   const menus = ["Plugin", "Gallery", "Tasks", "Stats"];
 
   return (
@@ -991,7 +992,10 @@ const MoreGameInfo: Component<MoreGameInfoProps> = (props) => {
               );
             case 2:
               return (
-                <TasksInfo>
+                <TasksInfo
+                  current_task={current_task}
+                  set_current_task={set_current_task}
+                >
                 </TasksInfo>
               );
             case 3:
@@ -1115,22 +1119,6 @@ const Gallery: Component<GalleryProps> = (props) => {
 /* Task Section */
 
 /**
- * Helper function to cut a string. Since the CSS is set up in a way where div
- * height is dynamic it's important the min height is kept equal for all menus,
- * so it must be cut here instead of in CSS.
- * 
- * @param string String to cut.
- * @param length Maximum length of string before cutting.
- * @return Cut string.
- */
-function cut_string(string: string, length: number): string {
-  if (string.length > length) {
-    return string.slice(0, length).trim() + "...";
-  }
-  return string;
-}
-
-/**
  * Helper function to calculate the reward for tasks where the task reward may
  * be missing. This is due to how the taskbase JSON file was initially set up
  * during programming the plugin.
@@ -1152,7 +1140,7 @@ function calculate_reward(task: Task): number {
     }
   }
 
-  return task.reward
+  return task.reward;
 }
 
 /* task consts and whatnot */
@@ -1177,17 +1165,24 @@ const task_color_mapping: Record<number, string> = {
   3: "#2861c9"
 }
 
+interface TaskInfoProps {
+  current_task: Accessor<number>;
+  set_current_task: (current_task: number) => void;
+}
+
 /**
  * Tasks Info component. Displays a list of all tasks that the user can go through.
  * Displays the task name, task difficulty, task description and task reward.
  * 
+ * @param current_task Accessor for the current task to display.
+ * @param set_current_task Setter for the current task.
  * @return JSX Component of the tasks info.
  */
-const TasksInfo: Component = () => {
+const TasksInfo: Component<TaskInfoProps> = (props) => {
   const [tasks, set_tasks] = createSignal<Task[]>([]);
-  const [current_task, set_current_task] = createSignal(0);
-
   const tasks_path = "assets/minecraft/serverdata/session6/taskbase.json";
+
+  let task_description!: HTMLSpanElement;
 
   // load the task data to display
   const load_task_data = () => {
@@ -1205,14 +1200,41 @@ const TasksInfo: Component = () => {
 
   const increment_task = (direction: boolean) => {
     if (direction) {
-      set_current_task((current_task() + 1) % tasks().length);
+      props.set_current_task((props.current_task() + 1) % tasks().length);
     } else {
-      set_current_task((current_task() + tasks().length - 1) % tasks().length);
+      props.set_current_task((props.current_task() + tasks().length - 1) % tasks().length);
     }
   }
 
+  // truncate task description so it, at most, displays 3 lines
+  const truncate_task_description = () => {
+    if (task_description) {
+      const lineHeight = parseFloat(getComputedStyle(task_description).lineHeight);
+      const maxHeight = lineHeight * MAX_DESC_LINES;
+      task_description.style.maxHeight = `${maxHeight}px`;
+      task_description.style.overflow = "hidden";
+      task_description.style.textOverflow = "ellipsis";
+      task_description.style.display = "-webkit-box";
+      task_description.style.webkitBoxOrient = "vertical";
+      task_description.style.webkitLineClamp = MAX_DESC_LINES.toString();
+    }
+  };
+
   onMount(() => {
     load_task_data();
+
+    window.addEventListener("resize", truncate_task_description);
+    onCleanup(() => {
+      window.removeEventListener("resize", truncate_task_description);
+    })
+  })
+
+  createEffect(() => {
+    createEffect(() => {
+      if (tasks().length > 0 && task_description) {
+        truncate_task_description();
+      }
+    });
   })
 
   return (
@@ -1220,23 +1242,23 @@ const TasksInfo: Component = () => {
       {tasks().length > 0 ? (
         <div class={styles.task_info}>
           <span>
-            Task Name: {tasks()[current_task()].name}
+            Task Name: {tasks()[props.current_task()].name}
           </span>
           <span>
             Task Difficulty:&nbsp;
-            <span style={{ "color": task_color_mapping[tasks()[current_task()].difficulty] }}>
-              {task_mapping[tasks()[current_task()].difficulty]}
+            <span style={{ "color": task_color_mapping[tasks()[props.current_task()].difficulty] }}>
+              {task_mapping[tasks()[props.current_task()].difficulty]}
             </span>
           </span>
           <br></br>
-          <span>
-            Task Description: {cut_string(tasks()[current_task()].description, MAX_DESCRIPTION_LENGTH)}
+          <span ref={task_description}>
+            Task Description: {tasks()[props.current_task()].description}
           </span>
           <br></br>
-          <span>
+          <span class={styles.reward_text_wrapper}>
             Reward:&nbsp;
             <span class={styles.reward_text}>
-              {calculate_reward(tasks()[current_task()])} tokens
+              {calculate_reward(tasks()[props.current_task()])} tokens
             </span>
           </span>
         </div>

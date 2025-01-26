@@ -260,8 +260,13 @@ a:hover {
 .task_info {
   display: flex;
   flex-direction: column;
-  align-self: flex-start;
   margin-bottom: auto;
+  height: 300px;
+}
+
+.reward_text_wrapper {
+  position: relative;
+  margin-top: auto;
 }
 
 .reward_text {
