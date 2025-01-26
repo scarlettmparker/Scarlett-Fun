@@ -795,8 +795,11 @@ const SecretLife: Component = () => {
     url: STEVE_URL, type: "normal"
   });
   const [canvas_ref, set_canvas_ref] = createSignal<HTMLCanvasElement | null>(null)
-  const [large_image, set_large_image] = createSignal(-1);
+
   const [current_menu, set_current_menu] = createSignal(0);
+  const [current_image, set_current_image] = createSignal(0);
+  const [current_task, set_current_task] = createSignal(0);
+  const [large_image, set_large_image] = createSignal(-1);
 
   createEffect(() => {
     if (!canvas_ref()) return;
@@ -834,8 +837,43 @@ const SecretLife: Component = () => {
               <MoreGameInfo
                 current_menu={current_menu}
                 set_current_menu={set_current_menu}
-                set_large_image={set_large_image}
               >
+                {
+                  (() => {
+                    switch (current_menu()) {
+                      case 0:
+                        return (
+                          <PluginInfo>
+                          </PluginInfo>
+                        );
+                      case 1:
+                        return (
+                          <Gallery
+                            current_image={current_image}
+                            set_current_image={set_current_image}
+                            set_large_image={set_large_image}
+                          >
+                          </Gallery>
+                        );
+                      case 2:
+                        return (
+                          <TasksInfo
+                            current_task={current_task}
+                            set_current_task={set_current_task}
+                          >
+                          </TasksInfo>
+                        );
+                      case 3:
+                        return (
+                          <>
+
+                          </>
+                        );
+                      default:
+                        return null;
+                    }
+                  })()
+                }
               </MoreGameInfo>
             </GameInfo>
             <div class={styles.info}>
@@ -943,7 +981,7 @@ const GameInfo: Component<GameInfoProps> = (props) => {
 interface MoreGameInfoProps {
   current_menu: Accessor<number>;
   set_current_menu: (menu: number) => void;
-  set_large_image: (large_image: number) => void;
+  children: JSX.Element;
 }
 
 /**
@@ -952,12 +990,9 @@ interface MoreGameInfoProps {
  * 
  * @param current_menu Accessor to current menu (passed as a prop so menu keeps on re-renders).
  * @param set_current_menu Setter for the current menu.
- * @param set_large_image Setter for the large image display when clicked in gallery.
  * @return JSX Component for more game info.
  */
 const MoreGameInfo: Component<MoreGameInfoProps> = (props) => {
-  const [current_image, set_current_image] = createSignal(0);
-  const [current_task, set_current_task] = createSignal(0);
   const menus = ["Plugin", "Gallery", "Tasks", "Stats"];
 
   return (
@@ -974,40 +1009,7 @@ const MoreGameInfo: Component<MoreGameInfoProps> = (props) => {
         })}
       </div>
       {
-        (() => {
-          switch (props.current_menu()) {
-            case 0:
-              return (
-                <PluginInfo>
-                </PluginInfo>
-              );
-            case 1:
-              return (
-                <Gallery
-                  current_image={current_image}
-                  set_current_image={set_current_image}
-                  set_large_image={props.set_large_image}
-                >
-                </Gallery>
-              );
-            case 2:
-              return (
-                <TasksInfo
-                  current_task={current_task}
-                  set_current_task={set_current_task}
-                >
-                </TasksInfo>
-              );
-            case 3:
-              return (
-                <>
-
-                </>
-              );
-            default:
-              return null;
-          }
-        })()
+        props.children
       }
     </div>
   );
@@ -1089,7 +1091,6 @@ interface GalleryProps {
  * @return JSX Component of the gallery.
  */
 const Gallery: Component<GalleryProps> = (props) => {
-
   const increment_image = (direction: boolean) => {
     if (direction) {
       props.set_current_image((props.current_image() + 1) % IMAGE_COUNT);
