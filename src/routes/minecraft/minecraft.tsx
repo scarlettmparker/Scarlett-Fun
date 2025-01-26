@@ -806,6 +806,7 @@ const SecretLife: Component = () => {
     draw_skin(canvas_ref()!, skin().url);
   })
 
+  // get the user's skin on search update
   createEffect(() => {
     if (!skin_username()) return;
     const url = debounce_search_update(skin_username());
@@ -814,6 +815,27 @@ const SecretLife: Component = () => {
       set_skin(result as Skin);
     })
   })
+
+  // menu components for component composition
+  const menu_components: Record<number, JSX.Element> = {
+    0: <PluginInfo />,
+    1: (
+      <Gallery
+        current_image={current_image}
+        set_current_image={set_current_image}
+        set_large_image={set_large_image}
+      />
+    ),
+    2: (
+      <TasksInfo
+        current_task={current_task}
+        set_current_task={set_current_task}
+      />
+    ),
+    3: (
+      <></>
+    ),
+  };
 
   return (
     <>
@@ -838,42 +860,7 @@ const SecretLife: Component = () => {
                 current_menu={current_menu}
                 set_current_menu={set_current_menu}
               >
-                {
-                  (() => {
-                    switch (current_menu()) {
-                      case 0:
-                        return (
-                          <PluginInfo>
-                          </PluginInfo>
-                        );
-                      case 1:
-                        return (
-                          <Gallery
-                            current_image={current_image}
-                            set_current_image={set_current_image}
-                            set_large_image={set_large_image}
-                          >
-                          </Gallery>
-                        );
-                      case 2:
-                        return (
-                          <TasksInfo
-                            current_task={current_task}
-                            set_current_task={set_current_task}
-                          >
-                          </TasksInfo>
-                        );
-                      case 3:
-                        return (
-                          <>
-
-                          </>
-                        );
-                      default:
-                        return null;
-                    }
-                  })()
-                }
+                {menu_components[current_menu()] || null}
               </MoreGameInfo>
             </GameInfo>
             <div class={styles.info}>
