@@ -818,19 +818,21 @@ const SecretLife: Component = () => {
 
   // menu components for component composition
   const menu_components: Record<number, JSX.Element> = {
-    0: <PluginInfo />,
+    0: <PluginInfo></PluginInfo>,
     1: (
       <Gallery
         current_image={current_image}
         set_current_image={set_current_image}
         set_large_image={set_large_image}
-      />
+      >
+      </Gallery>
     ),
     2: (
       <TasksInfo
         current_task={current_task}
         set_current_task={set_current_task}
-      />
+      >
+      </TasksInfo>
     ),
     3: (
       <></>
