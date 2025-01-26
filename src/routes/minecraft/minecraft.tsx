@@ -1,11 +1,10 @@
 import { Accessor, Component, createEffect, createMemo, createSignal, JSX, onCleanup, onMount } from "solid-js";
 import { Application, Assets, FederatedPointerEvent, Geometry, Shader, Mesh, GlProgram } from "pixi.js";
 import { Title } from "@solidjs/meta";
-import { Portal } from "solid-js/web";
 import styles from './minecraft.module.css';
 
 // PixiJS consts
-const BOOK_SIZE = 72;
+const BOOK_SIZE = 80;
 const DEBOUNCE_MS = 300;
 const FADE_TIME = 16;
 const FADE_STEP = 0.04;
@@ -13,6 +12,7 @@ const FADE_STEP = 0.04;
 // Secret Life
 const STEVE_URL = "/assets/minecraft/images/steve.png";
 const IMAGE_COUNT = 6;
+const MAX_DESCRIPTION_LENGTH = 260;
 
 /**
  * Draws all parts of a player's skin onto a canvas context, including their accessories
@@ -796,6 +796,7 @@ const SecretLife: Component = () => {
   });
   const [canvas_ref, set_canvas_ref] = createSignal<HTMLCanvasElement | null>(null)
   const [large_image, set_large_image] = createSignal(-1);
+  const [current_menu, set_current_menu] = createSignal(0);
 
   createEffect(() => {
     if (!canvas_ref()) return;
@@ -814,13 +815,11 @@ const SecretLife: Component = () => {
   return (
     <>
       {large_image() != -1 &&
-        <Portal>
-          <LargeImage
-            large_image={large_image}
-            set_large_image={set_large_image}
-          >
-          </LargeImage>
-        </Portal>
+        <LargeImage
+          large_image={large_image}
+          set_large_image={set_large_image}
+        >
+        </LargeImage>
       }
       <div class={styles.wrapper}>
         <span class={styles.title}>
@@ -832,10 +831,15 @@ const SecretLife: Component = () => {
         <div class={styles.life_wrapper}>
           <div class={styles.info_wrapper}>
             <GameInfo>
-              <MoreGameInfo set_large_image={set_large_image}>
+              <MoreGameInfo
+                current_menu={current_menu}
+                set_current_menu={set_current_menu}
+                set_large_image={set_large_image}
+              >
               </MoreGameInfo>
             </GameInfo>
             <div class={styles.info}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
               <button class={`${styles.button} ${styles.more}`}>
                 Read More
               </button>
@@ -903,6 +907,13 @@ interface GameInfoProps {
   children: JSX.Element;
 }
 
+/**
+ * Game Info component. Shows the main information about the server such as how
+ * it was created, a gallery, tasks, etc.
+ * 
+ * @param children JSX children (menu list)
+ * @return JSX Component for the game info.
+ */
 const GameInfo: Component<GameInfoProps> = (props) => {
   const [menu_open, set_menu_open] = createSignal(false);
 
@@ -930,13 +941,22 @@ const GameInfo: Component<GameInfoProps> = (props) => {
 }
 
 interface MoreGameInfoProps {
+  current_menu: Accessor<number>;
+  set_current_menu: (menu: number) => void;
   set_large_image: (large_image: number) => void;
 }
 
+/**
+ * "More" Game Info component. Renders menus for each part of the info section
+ * that will then display in full detail information about the server.
+ * 
+ * @param current_menu Accessor to current menu (passed as a prop so menu keeps on re-renders).
+ * @param set_current_menu Setter for the current menu.
+ * @param set_large_image Setter for the large image display when clicked in gallery.
+ * @return JSX Component for more game info.
+ */
 const MoreGameInfo: Component<MoreGameInfoProps> = (props) => {
-  const [current_menu, set_current_menu] = createSignal(1);
   const [current_image, set_current_image] = createSignal(0);
-
   const menus = ["Plugin", "Gallery", "Tasks", "Stats"];
 
   return (
@@ -944,8 +964,9 @@ const MoreGameInfo: Component<MoreGameInfoProps> = (props) => {
       <div class={styles.nav_bar}>
         {menus.map((menu, index) => {
           return (
-            <span class={`${styles.nav_bar_item} ${index == current_menu() && styles.nav_bar_item_selected}`}
-              onclick={() => set_current_menu(index)}>
+            <span class={`${styles.nav_bar_item} ${index == props.current_menu() && styles.nav_bar_item_selected}`}
+              onclick={() => props.set_current_menu(index)}
+            >
               {menu}
             </span>
           )
@@ -953,7 +974,7 @@ const MoreGameInfo: Component<MoreGameInfoProps> = (props) => {
       </div>
       {
         (() => {
-          switch (current_menu()) {
+          switch (props.current_menu()) {
             case 0:
               return (
                 <PluginInfo>
@@ -970,9 +991,8 @@ const MoreGameInfo: Component<MoreGameInfoProps> = (props) => {
               );
             case 2:
               return (
-                <>
-
-                </>
+                <TasksInfo>
+                </TasksInfo>
               );
             case 3:
               return (
@@ -1065,6 +1085,7 @@ interface GalleryProps {
  * @return JSX Component of the gallery.
  */
 const Gallery: Component<GalleryProps> = (props) => {
+
   const increment_image = (direction: boolean) => {
     if (direction) {
       props.set_current_image((props.current_image() + 1) % IMAGE_COUNT);
@@ -1087,6 +1108,145 @@ const Gallery: Component<GalleryProps> = (props) => {
           onclick={() => props.set_large_image(props.current_image())}
         ></img>
       </div>
+    </div>
+  )
+}
+
+/* Task Section */
+
+/**
+ * Helper function to cut a string. Since the CSS is set up in a way where div
+ * height is dynamic it's important the min height is kept equal for all menus,
+ * so it must be cut here instead of in CSS.
+ * 
+ * @param string String to cut.
+ * @param length Maximum length of string before cutting.
+ * @return Cut string.
+ */
+function cut_string(string: string, length: number): string {
+  if (string.length > length) {
+    return string.slice(0, length).trim() + "...";
+  }
+  return string;
+}
+
+/**
+ * Helper function to calculate the reward for tasks where the task reward may
+ * be missing. This is due to how the taskbase JSON file was initially set up
+ * during programming the plugin.
+ * 
+ * @param task Task to extract the reward from.
+ * @return Task reward as a number.
+ */
+function calculate_reward(task: Task): number {
+  if (!task.reward) {
+    switch (task.difficulty) {
+      case 0:
+        return 6;
+      case 1:
+        return 17;
+      case 2:
+        return 3;
+      case 3:
+        return 13;
+    }
+  }
+
+  return task.reward
+}
+
+/* task consts and whatnot */
+type Task = {
+  name: string;
+  description: string;
+  difficulty: number;
+  reward: number;
+}
+
+const task_mapping: Record<number, string> = {
+  0: "Normal",
+  1: "Hard",
+  2: "Red",
+  3: "Shiny"
+};
+
+const task_color_mapping: Record<number, string> = {
+  0: "#28c878",
+  1: "#e0a526",
+  2: "#c82843",
+  3: "#2861c9"
+}
+
+/**
+ * Tasks Info component. Displays a list of all tasks that the user can go through.
+ * Displays the task name, task difficulty, task description and task reward.
+ * 
+ * @return JSX Component of the tasks info.
+ */
+const TasksInfo: Component = () => {
+  const [tasks, set_tasks] = createSignal<Task[]>([]);
+  const [current_task, set_current_task] = createSignal(0);
+
+  const tasks_path = "assets/minecraft/serverdata/session6/taskbase.json";
+
+  // load the task data to display
+  const load_task_data = () => {
+    fetch(tasks_path)
+      .then((response) => response.json())
+      .then((json) => {
+        // filter out fields that we don't need
+        const task_array = Object.values(json).map((task: any) => {
+          const { name, description, difficulty, reward } = task;
+          return { name, description, difficulty, reward };
+        });
+        set_tasks(task_array);
+      });
+  }
+
+  const increment_task = (direction: boolean) => {
+    if (direction) {
+      set_current_task((current_task() + 1) % tasks().length);
+    } else {
+      set_current_task((current_task() + tasks().length - 1) % tasks().length);
+    }
+  }
+
+  onMount(() => {
+    load_task_data();
+  })
+
+  return (
+    <div class={styles.description_tasks}>
+      {tasks().length > 0 ? (
+        <div class={styles.task_info}>
+          <span>
+            Task Name: {tasks()[current_task()].name}
+          </span>
+          <span>
+            Task Difficulty:&nbsp;
+            <span style={{ "color": task_color_mapping[tasks()[current_task()].difficulty] }}>
+              {task_mapping[tasks()[current_task()].difficulty]}
+            </span>
+          </span>
+          <br></br>
+          <span>
+            Task Description: {cut_string(tasks()[current_task()].description, MAX_DESCRIPTION_LENGTH)}
+          </span>
+          <br></br>
+          <span>
+            Reward:&nbsp;
+            <span class={styles.reward_text}>
+              {calculate_reward(tasks()[current_task()])} tokens
+            </span>
+          </span>
+        </div>
+      ) : (
+        <>Loading...</>
+      )}
+      <button class={`${styles.button} ${styles.left_button}`}
+        onclick={() => increment_task(false)}>{"<"}</button>
+      <button class={`${styles.button} ${styles.right_button}`}
+        onclick={() => increment_task(true)}>{">"}</button>
     </div>
   )
 }
@@ -1124,6 +1284,7 @@ const Character: Component<CharacterProps> = (props) => {
 
 /**
  * Background wrapper to set the background image of the page.
+ * Also helps to manage creating and destroying the PixiJS scene.
  * 
  * @return JSX Component of the background wrapper.
  */

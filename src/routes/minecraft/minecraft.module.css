@@ -203,12 +203,12 @@ a:hover {
 }
 
 .description,
-.description_gallery {
+.description_gallery,
+.description_tasks {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   height: fit-content;
+  align-items: center;
   overflow: hidden;
   min-height: 300px;
   border-radius: 10px;
@@ -216,12 +216,15 @@ a:hover {
   background-color: rgba(255, 255, 255, 0.05);
 }
 
-.description {
-  padding: 10px 15px;
+.description_gallery,
+.description_tasks {
+  justify-content: center;
 }
 
+.description,
+.description_tasks,
 .description_gallery {
-  padding: 10px;
+  padding: 15px;
 }
 
 @keyframes color_switch {
@@ -254,6 +257,17 @@ a:hover {
   transition: color 1s;
 }
 
+.task_info {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  margin-bottom: auto;
+}
+
+.reward_text {
+  color: #e0a526;
+}
+
 .left_button,
 .right_button,
 .large_left_button,
@@ -276,11 +290,11 @@ a:hover {
 }
 
 .left_button {
-  left: -1rem;
+  left: -1.5rem;
 }
 
 .right_button {
-  right: -1rem;
+  right: -1.5rem;
 }
 
 .image_wrapper {
@@ -294,6 +308,7 @@ a:hover {
 }
 
 .image {
+  position: relative;
   object-fit: cover;
 }
 
@@ -318,6 +333,6 @@ a:hover {
 .book {
   image-rendering: pixelated;
   position: absolute;
-  margin-top: 4rem;
+  margin-top: 3rem;
   margin-right: 7rem;
 }
