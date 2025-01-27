@@ -332,24 +332,32 @@ p:last-child {
   gap: 0.5rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   overflow: hidden;
 }
 
 .task_header,
 .task_header_no_buttons {
-  width: 90%;
+  width: 100%;
   max-width: 19rem;
   height: 36px;
   /* mmmm, yummy */
   display: flex;
   align-items: center;
-  margin-top: auto;
+  justify-content: center;
+  font-size: min(1.4rem, 6vw);
+}
+
+.task_header_no_buttons,
+.task_header_no_wrap {
+  width: 70%;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .task_header_no_buttons {
-  justify-content: center;
+  margin-top: auto;
 }
 
 .task_header {

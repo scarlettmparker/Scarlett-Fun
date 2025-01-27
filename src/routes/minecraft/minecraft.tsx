@@ -1191,9 +1191,6 @@ const task_color_mapping: Record<number, string> = {
  * @param lines Number of lines to limit the text to.
  */
 function truncate_text(text: HTMLElement, lines: number) {
-  const lineHeight = parseFloat(getComputedStyle(text).lineHeight);
-  const maxHeight = lineHeight * lines;
-  text.style.maxHeight = `${maxHeight}px`;
   text.style.overflow = "hidden";
   text.style.textOverflow = "ellipsis";
   text.style.display = "-webkit-box";
@@ -1402,14 +1399,21 @@ const SLPlayerStats: Component<SLPlayerStatsProps> = (props) => {
 
   // truncate descriptions for task and death depending on line length
   createEffect(() => {
-    if (players().length > 0 && task_description && props.current_player() >= 0) {
-      truncate_text(death_description, MAX_DESC_DEATH_LINES);
+    if (props.current_player() >= 0 && current_task()) {
       truncate_text(task_description, MAX_DESC_PLAYER_LINES);
     }
   })
 
   createEffect(() => {
+    if (props.current_player() >= 0 && current_death()) {
+      truncate_text(death_description, MAX_DESC_DEATH_LINES);
+    }
+  })
+
+  createEffect(() => {
     if (props.stats_mounted()) {
+      truncate_text(task_description, MAX_DESC_PLAYER_LINES);
+      truncate_text(death_description, MAX_DESC_DEATH_LINES);
       props.set_skin_username(player().name);
     }
   })
@@ -1479,7 +1483,7 @@ const SLPlayerStats: Component<SLPlayerStatsProps> = (props) => {
                     <button class={`${styles.button} ${styles.left_button_tasks}`}
                       onclick={() => increment_task(false)}>{"<"}</button>
                     {
-                      <span style={{
+                      <span class={styles.task_header_no_wrap} style={{
                         "color": task_color_mapping[
                           player().tasks[current_task()].difficulty
                         ]
