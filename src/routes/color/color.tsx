@@ -135,8 +135,10 @@ const Color: Component = () => {
             <div class={styles.answer_footer}>
               {colors().map((color, idx) => {
                 return (
-                  <button class={(winner() !== null && idx == answer()) ? styles.correct_button : styles.button}
-                    disabled={winner() !== null && idx !== answer()} onclick={() => guess(idx)}>
+                  <button
+                    disabled={winner() !== null}
+                    class={(winner() !== null && idx == answer()) ? styles.correct_button : styles.button}
+                    onclick={() => guess(idx)}>
                     {color}
                   </button>
                 );
