@@ -112,7 +112,7 @@ const Color: Component = () => {
 
   return (
     <div class={styles.page_wrapper}>
-      <Title>Color</Title>
+      <Title>Color Game</Title>
       <div class={styles.score_wrapper}>
         <span class={styles.score_text}>Score: {correct()}</span>
         <span class={styles.score_text}>Best: {best()}</span>
