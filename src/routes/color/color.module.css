@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+:root {
+  --color-text: #1F1D1D;
+  --color-background: #F6FAFA;
+  --button-background: #272121;
+  --button-text: #DEE5E5;
+}
+
+.score_wrapper {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: right;
+  width: calc(100% - 3rem);
+}
+
+.score_text {
+  font-family: "Open Sans";
+  font-size: 1.2rem;
+}
+
+.game_wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  box-sizing: border-box;
+  justify-content: center;
+  min-height: 100vh;
+  padding-top: 20px;
+  gap: 1rem;
+  width: clamp(225px, 100vw - 20px, 400px);
+}
+
+.answer_box {
+  aspect-ratio: 1 / 1;
+  border-radius: 10px;
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.message {
+  font-family: "Open Sans";
+  font-size: 2rem;
+  padding: 2px 10px;
+  color: var(--color-background);
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+}
+
+.answer_footer {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  justify-content: center;
+  left: 50%;
+  gap: 1rem;
+  transform: translateX(-50%);
+  width: clamp(225px, 100vw - 20px, 800px);
+}
+
+.button,
+.correct_button {
+  border: none;
+  background-color: var(--button-background);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-size: 1rem;
+  border: 1px solid var(--button-background);
+  user-select: none;
+  cursor: pointer;
+  font-family: "Open Sans";
+}
+
+.correct_button {
+  cursor: auto;
+}
+
+.button:disabled {
+  background-color: rgb(180, 180, 180);
+  cursor: auto;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.button:disabled:hover {
+  background-color: rgb(180, 180, 180);
+  color: white;
+}
+
+.button:hover {
+  background-color: var(--button-text);
+  color: var(--button-background);
+}
+
+
+@media (prefers-color-scheme: dark) {
+  .page_wrapper {
+    background-color: var(--color-text);
+    color: var(--color-background);
+  }
+
+  .answer_box {
+    border: 2px solid var(--color-background);
+  }
+
+  .message {
+    color: var(--color-text);
+    background-color: rgba(255, 255, 255, 0.6);
+  }
+
+  .button,
+  .correct_button {
+    background-color: var(--button-text);
+    color: var(--button-background);
+    border: 1px solid var(--button-text);
+  }
+
+  .button:disabled {
+    background-color: rgb(120, 120, 120);
+  }
+
+  .button:disabled:hover {
+    background-color: rgb(120, 120, 120);
+    color: var(--button-background);
+  }
+
+  .button:hover {
+    background-color: var(--button-background);
+    color: var(--button-text);
+  }
+}

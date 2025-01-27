@@ -29,6 +29,11 @@ const Index: Component = () => {
               Spell Bee
             </a>
           </li>
+          <li>
+            <a class={styles.a} href="https://scarlettparker.co.uk/color/">
+              Color Game
+            </a>
+          </li>
         </ul>
       </span>
     </>

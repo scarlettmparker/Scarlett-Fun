@@ -83,14 +83,14 @@ p:last-child {
 .close_button {
   position: absolute;
   right: 1.5rem;
-  top: 1rem;
+  top: 2.5rem;
   z-index: 1;
 }
 
 .large_image {
   position: fixed;
   width: 90%;
-  height: 90%;
+  height: 80%;
   object-fit: cover;
   left: 50%;
   top: 50%;
@@ -145,6 +145,7 @@ p:last-child {
 
 .button,
 .button_hidden {
+  touch-action: manipulation;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
   position: absolute;
