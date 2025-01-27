@@ -1,5 +1,5 @@
-import { Accessor, Component, createEffect, createMemo, createSignal, JSX, onCleanup, onMount } from "solid-js";
-import { Application, Assets, FederatedPointerEvent, Geometry, Shader, Mesh, GlProgram } from "pixi.js";
+import { Accessor, Component, createEffect, createSignal, JSX, onCleanup, onMount } from "solid-js";
+import { Application, Assets, Geometry, Shader, Mesh, GlProgram } from "pixi.js";
 import { Title } from "@solidjs/meta";
 import styles from './minecraft.module.css';
 
@@ -763,7 +763,7 @@ function move_book(book: Mesh<Geometry, Shader>) {
 const Minecraft: Component = () => {
   return (
     <>
-      <Title>Secret Life</Title>
+      <Title>Life Series</Title>
       <SecretLife>
       </SecretLife>
       <Background>
@@ -1083,7 +1083,7 @@ const SLPluginInfo: Component = () => {
       </p>
       <p>
         The Secret Life plugin was used to manage <LivesText> lives</LivesText>, distribute tasks, gather player data and house a variety of other custom features that can be found on the&nbsp;
-        <a href={"https://github.com/scarlettmparker/Secret-Life"} target="_blank">GitHub repository</a>.
+        <a style={styles.a} href={"https://github.com/scarlettmparker/Secret-Life"} target="_blank">GitHub repository</a>.
       </p>
       <p>
         Developed in Java over the course of a few weeks, this plugin can be used on any 1.15+ Minecraft server that supports Spigot plugins.
