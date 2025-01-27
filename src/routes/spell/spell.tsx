@@ -1,4 +1,5 @@
 import { Component, createSignal, onMount } from "solid-js";
+import { Title } from "@solidjs/meta";
 import styles from './spell.module.css';
 
 /**
@@ -18,7 +19,7 @@ import styles from './spell.module.css';
  * @returns Promise<[string[], string]> that resolves to an array of letters and the center letter
  */
 async function load_letters(difficulty: number): Promise<[string[], string]> {
-  const letters_file = `./assets/spellbee/acceptable_letters_${difficulty}.txt`;
+  const letters_file = `/assets/spellbee/acceptable_letters_${difficulty}.txt`;
 
   const letters = fetch(letters_file)
     .then(response => response.text())
@@ -64,7 +65,7 @@ type Solutions = {
  * formatted solutions, and total points
  */
 async function load_solutions(letters: string[], center_letter: string): Promise<Solutions> {
-  const dictionary_file = './assets/spellbee/dictionary_filtered.txt';
+  const dictionary_file = '/assets/spellbee/dictionary_filtered.txt';
   let solutions: Solutions = { solutions: [], formatted_soutions: [], total_points: 0 };
 
   try {
@@ -286,44 +287,49 @@ const Spell: Component = () => {
   }
 
   return (
-    <div class={styles.spell_bee_wrapper}>
-      <div class={styles.points}>
-        <span class={styles.points_text}>Πόντοι:</span>
-        <span class={styles.points_tracker}>{points()} / {total_points()}</span>
+    <>
+      <Title>
+        Spell Bee
+      </Title>
+      <div class={styles.spell_bee_wrapper}>
+        <div class={styles.points}>
+          <span class={styles.points_text}>Πόντοι:</span>
+          <span class={styles.points_tracker}>{points()} / {total_points()}</span>
+        </div>
+        <div class={styles.message}>
+          {
+            display() ?
+              <span class={`${styles.display} ${styles.fade_in}`}>{display()}</span>
+              : error() &&
+              <span class={`${styles.error} ${styles.fade_in}`}>{error()}</span>
+          }
+        </div>
+        <div class={styles.answer}>
+          <input class={styles.answer_box} type="text" value={guess()} ref={guess_box_ref} />
+        </div>
+        <div class={styles.spell_bee_row}>
+          {top_row().map(letter => (
+            <div class={styles.hex} onclick={() => add_hex_letter(letter)}>
+              {letter}
+            </div>
+          ))}
+        </div>
+        <div class={styles.spell_bee_row}>
+          {middle_row().map(letter => (
+            <div class={styles.hex} onclick={() => add_hex_letter(letter)}>
+              {letter}
+            </div>
+          ))}
+        </div>
+        <div class={styles.spell_bee_row}>
+          {bottom_row().map(letter => (
+            <div class={styles.hex} onclick={() => add_hex_letter(letter)}>
+              {letter}
+            </div>
+          ))}
+        </div>
       </div>
-      <div class={styles.message}>
-        {
-          display() ?
-            <span class={`${styles.display} ${styles.fade_in}`}>{display()}</span>
-            : error() &&
-            <span class={`${styles.error} ${styles.fade_in}`}>{error()}</span>
-        }
-      </div>
-      <div class={styles.answer}>
-        <input class={styles.answer_box} type="text" value={guess()} ref={guess_box_ref} />
-      </div>
-      <div class={styles.spell_bee_row}>
-        {top_row().map(letter => (
-          <div class={styles.hex} onclick={() => add_hex_letter(letter)}>
-            {letter}
-          </div>
-        ))}
-      </div>
-      <div class={styles.spell_bee_row}>
-        {middle_row().map(letter => (
-          <div class={styles.hex} onclick={() => add_hex_letter(letter)}>
-            {letter}
-          </div>
-        ))}
-      </div>
-      <div class={styles.spell_bee_row}>
-        {bottom_row().map(letter => (
-          <div class={styles.hex} onclick={() => add_hex_letter(letter)}>
-            {letter}
-          </div>
-        ))}
-      </div>
-    </div>
+    </>
   )
 };
 
