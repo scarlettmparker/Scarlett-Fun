@@ -107,7 +107,7 @@ a:hover {
 }
 
 .sub_header {
-  font-size: min(2rem, 8vw);
+  font-size: min(2rem, 7vw);
   align-self: flex-end;
   margin-top: -4px;
 }
@@ -139,23 +139,36 @@ a:hover {
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
   font-family: "Reo Sans";
-  font-size: min(1.4rem, 6vw);
+  font-size: min(1.4rem, 6.5vw);
   border: 2px solid rgba(255, 255, 255, 0.1);
 }
 
-.more {
+.button,
+.button_hidden {
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
   position: absolute;
+  opacity: 0.5;
+  z-index: 2;
+}
+
+.button:hover {
+  opacity: 1;
+}
+
+.more {
   bottom: -15px;
   left: 50%;
   transform: translateX(-50%);
+  opacity: 1;
 }
 
-.button {
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+.more_hidden {
+  cursor: not-allowed;
 }
 
 .button,
+.button_hidden,
 .input {
   padding: 5px 12px;
   border-radius: 10px;
@@ -174,7 +187,8 @@ a:hover {
 .more_wrapper {
   margin-top: 2rem;
   left: 50%;
-  width: 90%;
+  width: 30rem;
+  max-width: 100%;
   display: flex;
   position: relative;
   flex-direction: column;
@@ -182,7 +196,8 @@ a:hover {
 }
 
 .nav_bar {
-  width: 90%;
+  width: 24rem;
+  max-width: 100%;
   left: 50%;
   position: relative;
   display: flex;
@@ -204,7 +219,8 @@ a:hover {
 
 .description,
 .description_gallery,
-.description_tasks {
+.description_tasks,
+.description_player {
   display: flex;
   flex-direction: column;
   height: fit-content;
@@ -217,14 +233,21 @@ a:hover {
 }
 
 .description_gallery,
-.description_tasks {
+.description_tasks,
+.description_player {
   justify-content: center;
 }
 
 .description,
 .description_tasks,
-.description_gallery {
+.description_gallery,
+.description_player {
   padding: 15px;
+}
+
+.description_player {
+  padding-top: 8px;
+  padding-bottom: 7px;
 }
 
 @keyframes color_switch {
@@ -257,11 +280,14 @@ a:hover {
   transition: color 1s;
 }
 
-.task_info {
+.task_info,
+.player_info {
   display: flex;
   flex-direction: column;
   margin-bottom: auto;
+  margin-right: auto;
   height: 300px;
+  width: 100%;
 }
 
 .reward_text_wrapper {
@@ -273,11 +299,85 @@ a:hover {
   color: #e0a526;
 }
 
-.left_button,
-.right_button,
-.large_left_button,
-.large_right_button {
+.player_info {
+  align-items: center;
+  text-align: center;
+  margin-top: 15px;
+}
+
+.player_header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
+  /* this lined up perfectly lol */
+  width: 100%;
+}
+
+.player_name_text {
+  font-weight: 600;
+}
+
+.death_title {
+  width: 95%;
+  max-width: 26rem;
+}
+
+.task_wrapper {
   position: absolute;
+  margin-top: 10.5rem;
+  width: calc(100% - 30px);
+  /* where i'm from, box-sizing: border-box doesn't exist... */
+  gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+}
+
+.task_header,
+.task_header_no_buttons {
+  width: 90%;
+  max-width: 19rem;
+  height: 36px;
+  /* mmmm, yummy */
+  display: flex;
+  align-items: center;
+  margin-top: auto;
+}
+
+.task_header_no_buttons {
+  justify-content: center;
+}
+
+.task_header {
+  justify-content: space-between;
+}
+
+.task_description {
+  text-align: center;
+}
+
+.player_lives_tokens_wrapper {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  left: 15px;
+  /* mmm yummy */
+  width: 100%;
+  top: calc(50% - 10px);
+  text-align: start;
+  transform: translateY(-50%);
+}
+
+.player_lives_text,
+.player_tokens_text {
+  width: calc(100% - 30px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .large_left_button,
@@ -294,12 +394,32 @@ a:hover {
   right: 1.5rem;
 }
 
-.left_button {
-  left: -1.5rem;
+.left_button,
+.left_button_deaths,
+.left_button_player {
+  left: -1rem;
 }
 
-.right_button {
-  right: -1.5rem;
+.right_button,
+.right_button_deaths,
+.right_button_player {
+  right: -1rem;
+}
+
+.left_button_deaths,
+.right_button_deaths {
+  position: absolute;
+  top: 6.6rem;
+  /* i am POPPING OFF today with this BRILLIANT css */
+}
+
+.left_button_tasks,
+.right_button_tasks {
+  position: relative;
+}
+
+.left_button_tasks {
+  left: 0;
 }
 
 .image_wrapper {

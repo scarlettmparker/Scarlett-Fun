@@ -13,6 +13,8 @@ const FADE_STEP = 0.04;
 const STEVE_URL = "/assets/minecraft/images/steve.png";
 const IMAGE_COUNT = 6;
 const MAX_DESC_LINES = 7;
+const MAX_DESC_DEATH_LINES = 2;
+const MAX_DESC_PLAYER_LINES = 3;
 
 /**
  * Draws all parts of a player's skin onto a canvas context, including their accessories
@@ -474,7 +476,6 @@ const debounce_search_update = debounce(async (skin_username: string): Promise<S
  * book of enchanting, maybe I will add more. Wrapped in pixi_canvas_wrapper.
  */
 async function create_pixi_scene() {
-
   // create wrapper for custom styling
   const wrapper = document.createElement('div');
   wrapper.id = 'pixi_canvas_wrapper';
@@ -692,10 +693,6 @@ async function create_pixi_scene() {
   observer.observe(document.documentElement);
   move_book(book); // on init
 
-  book.onmousemove = function (event) {
-    create_particles(event, book)
-  }
-
   /**
    * Allow book to fade in an out, this works by creating a timeout that will slowly
    * increase or decrease the opacity uniform in the fragment shader until it
@@ -758,14 +755,6 @@ function move_book(book: Mesh<Geometry, Shader>) {
 }
 
 /**
- * Animate particles when hovering over the book.
- */
-function create_particles(event: FederatedPointerEvent, book: Mesh<Geometry, Shader>) {
-
-}
-
-
-/**
  * Main component for the Minecraft page. Contains the Secret Life component,
  * the background component and the Pixi.JS context.
  * 
@@ -796,9 +785,14 @@ const SecretLife: Component = () => {
   });
   const [canvas_ref, set_canvas_ref] = createSignal<HTMLCanvasElement | null>(null)
 
+  // menu consts so state is kept through remounts
   const [current_menu, set_current_menu] = createSignal(0);
+  const [stats_mounted, set_stats_mounted] = createSignal(false);
+
   const [current_image, set_current_image] = createSignal(0);
   const [current_task, set_current_task] = createSignal(0);
+  const [current_player, set_current_player] = createSignal(0);
+
   const [large_image, set_large_image] = createSignal(-1);
 
   createEffect(() => {
@@ -818,24 +812,30 @@ const SecretLife: Component = () => {
 
   // menu components for component composition
   const menu_components: Record<number, JSX.Element> = {
-    0: <PluginInfo></PluginInfo>,
+    0: <SLPluginInfo></SLPluginInfo>,
     1: (
-      <Gallery
+      <SLGallery
         current_image={current_image}
         set_current_image={set_current_image}
         set_large_image={set_large_image}
       >
-      </Gallery>
+      </SLGallery>
     ),
     2: (
-      <TasksInfo
+      <SLTasksInfo
         current_task={current_task}
         set_current_task={set_current_task}
       >
-      </TasksInfo>
+      </SLTasksInfo>
     ),
     3: (
-      <></>
+      <SLPlayerStats
+        current_player={current_player}
+        stats_mounted={stats_mounted}
+        set_current_player={set_current_player}
+        set_skin_username={set_skin_username}
+      >
+      </SLPlayerStats>
     ),
   };
 
@@ -850,27 +850,27 @@ const SecretLife: Component = () => {
       }
       <div class={styles.wrapper}>
         <span class={styles.title}>
-          Secret Life
+          Life Series
           <span class={styles.sub_header}>
-            Tue 4 Jun - Tue 16 Jul
+            (2024) Tue 4 Jun - Tue 16 Jul
+          </span>
+          <span class={styles.sub_header}>
+            (2025) Sat 1 Feb - Ongoing
           </span>
         </span>
         <div class={styles.life_wrapper}>
           <div class={styles.info_wrapper}>
-            <GameInfo>
-              <MoreGameInfo
+            <SecretLifeInfo>
+              <MoreSecretLifeInfo
                 current_menu={current_menu}
                 set_current_menu={set_current_menu}
+                set_stats_mounted={set_stats_mounted}
               >
                 {menu_components[current_menu()] || null}
-              </MoreGameInfo>
-            </GameInfo>
-            <div class={styles.info}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              <button class={`${styles.button} ${styles.more}`}>
-                Read More
-              </button>
-            </div>
+              </MoreSecretLifeInfo>
+            </SecretLifeInfo>
+            <NightLifeInfo>
+            </NightLifeInfo>
           </div>
           <Character
             canvas_ref={(el) => (set_canvas_ref(el))}
@@ -897,7 +897,7 @@ interface LargeImageProps {
  * @return JSX Component of the large image.
  */
 const LargeImage: Component<LargeImageProps> = (props) => {
-  const image_path = () => `assets/minecraft/gallery/large/${props.large_image()}.png`;
+  const image_path = () => `assets/minecraft/secretlife/gallery/large/${props.large_image()}.png`;
 
   const increment_image = (e: MouseEvent, direction: boolean) => {
     e.stopPropagation();
@@ -930,24 +930,24 @@ const LargeImage: Component<LargeImageProps> = (props) => {
   );
 };
 
-interface GameInfoProps {
+interface SecretLifeInfoProps {
   children: JSX.Element;
 }
 
 /**
- * Game Info component. Shows the main information about the server such as how
- * it was created, a gallery, tasks, etc.
+ * Secret Life Info component. Shows the main information about the server such 
+ * as how it was created, a gallery, tasks, etc.
  * 
  * @param children JSX children (menu list)
- * @return JSX Component for the game info.
+ * @return JSX Component for the Secret Life info.
  */
-const GameInfo: Component<GameInfoProps> = (props) => {
+const SecretLifeInfo: Component<SecretLifeInfoProps> = (props) => {
   const [menu_open, set_menu_open] = createSignal(false);
 
   return (
     <div class={styles.info}>
       <p>
-        Secret Life was a 7 week long Minecraft event hosted for students at the University of Exeter, running once a week with 30 active players a session.
+        Secret Life was a 7 week long Minecraft event hosted for students at the University of Exeter, running once a week with over 20 active players a session.
       </p>
       <p>
         In Secret Life, players are assigned a task at the start of every session that they complete as discretely as possible.
@@ -967,22 +967,32 @@ const GameInfo: Component<GameInfoProps> = (props) => {
   )
 }
 
-interface MoreGameInfoProps {
+interface MoreSecretLifeInfoProps {
   current_menu: Accessor<number>;
   set_current_menu: (menu: number) => void;
+  set_stats_mounted: (mounted: boolean) => void;
   children: JSX.Element;
 }
 
 /**
- * "More" Game Info component. Renders menus for each part of the info section
+ * "More" Secret Life Info component. Renders menus for each part of the info section
  * that will then display in full detail information about the server.
  * 
  * @param current_menu Accessor to current menu (passed as a prop so menu keeps on re-renders).
  * @param set_current_menu Setter for the current menu.
+ * @param set_stats_mounted Setter for stats menu mounting to ensure skins load correctly.
  * @return JSX Component for more game info.
  */
-const MoreGameInfo: Component<MoreGameInfoProps> = (props) => {
+const MoreSecretLifeInfo: Component<MoreSecretLifeInfoProps> = (props) => {
   const menus = ["Plugin", "Gallery", "Tasks", "Stats"];
+
+  createEffect(() => {
+    if (props.current_menu() == 3) {
+      props.set_stats_mounted(true);
+    } else {
+      props.set_stats_mounted(false);
+    }
+  })
 
   return (
     <div class={styles.more_wrapper}>
@@ -1004,12 +1014,19 @@ const MoreGameInfo: Component<MoreGameInfoProps> = (props) => {
   );
 }
 
+
+interface LivesTextProps {
+  children: JSX.Element;
+}
+
 /**
- * Plugin Info component detailing the info about the plugin itself.
+ * Lives Text component. This will display an animation that fades through three
+ * colours representing the lives system on the servers.
  * 
- * @return JSX Component of the plugin info.
+ * @param children JSX Elements (e.g. text) to apply the text filter to
+ * @return JSX Component of the lives text wrapper.
  */
-const PluginInfo: Component = () => {
+const LivesText: Component<LivesTextProps> = (props) => {
   let lives_text_ref!: HTMLSpanElement;
 
   // life animation that changes colour when hovering over "lives" text
@@ -1047,14 +1064,25 @@ const PluginInfo: Component = () => {
   })
 
   return (
+    <span ref={lives_text_ref} class={styles.lives_text}>
+      {props.children}
+    </span>
+  )
+}
+
+/**
+ * Plugin Info component detailing the info about the Secret Life plugin itself.
+ * 
+ * @return JSX Component of the plugin info.
+ */
+const SLPluginInfo: Component = () => {
+  return (
     <div class={styles.description}>
       <p>
         Secret Life was made possible through a custom Minecraft plugin that was developed for the event.
       </p>
       <p>
-        The Secret Life plugin was used to manage <span ref={lives_text_ref} class={styles.lives_text}>
-          lives
-        </span>, distribute tasks, gather player data and house a variety of other custom features that can be found on the
+        The Secret Life plugin was used to manage <LivesText> lives</LivesText>, distribute tasks, gather player data and house a variety of other custom features that can be found on the&nbsp;
         <a href={"https://github.com/scarlettmparker/Secret-Life"} target="_blank">GitHub repository</a>.
       </p>
       <p>
@@ -1064,7 +1092,7 @@ const PluginInfo: Component = () => {
   )
 }
 
-interface GalleryProps {
+interface SLGalleryProps {
   current_image: Accessor<number>;
   set_current_image: (image: number) => void;
   set_large_image: (large_image: number) => void;
@@ -1079,7 +1107,7 @@ interface GalleryProps {
  * 
  * @return JSX Component of the gallery.
  */
-const Gallery: Component<GalleryProps> = (props) => {
+const SLGallery: Component<SLGalleryProps> = (props) => {
   const increment_image = (direction: boolean) => {
     if (direction) {
       props.set_current_image((props.current_image() + 1) % IMAGE_COUNT);
@@ -1097,7 +1125,7 @@ const Gallery: Component<GalleryProps> = (props) => {
       <div class={styles.image_wrapper}>
         <img
           class={styles.image}
-          src={`assets/minecraft/gallery/small/${props.current_image()}.png`}
+          src={`assets/minecraft/secretlife/gallery/small/${props.current_image()}.png`}
           draggable={false}
           onclick={() => props.set_large_image(props.current_image())}
         ></img>
@@ -1155,7 +1183,26 @@ const task_color_mapping: Record<number, string> = {
   3: "#2861c9"
 }
 
-interface TaskInfoProps {
+/**
+ * Truncate text by number of lines. This will add styling to the element to
+ * ensure it doesn't go over a certain number of lines.
+ * 
+ * @param text HTML element to truncate.
+ * @param lines Number of lines to limit the text to.
+ */
+function truncate_text(text: HTMLElement, lines: number) {
+  const lineHeight = parseFloat(getComputedStyle(text).lineHeight);
+  const maxHeight = lineHeight * lines;
+  text.style.maxHeight = `${maxHeight}px`;
+  text.style.overflow = "hidden";
+  text.style.textOverflow = "ellipsis";
+  text.style.display = "-webkit-box";
+  text.style.webkitBoxOrient = "vertical";
+  text.style.webkitLineClamp = lines.toString();
+}
+
+
+interface SLTasksInfoProps {
   current_task: Accessor<number>;
   set_current_task: (current_task: number) => void;
 }
@@ -1168,9 +1215,9 @@ interface TaskInfoProps {
  * @param set_current_task Setter for the current task.
  * @return JSX Component of the tasks info.
  */
-const TasksInfo: Component<TaskInfoProps> = (props) => {
+const SLTasksInfo: Component<SLTasksInfoProps> = (props) => {
   const [tasks, set_tasks] = createSignal<Task[]>([]);
-  const tasks_path = "assets/minecraft/serverdata/session6/taskbase.json";
+  const tasks_path = "assets/minecraft/secretlife/serverdata/taskbase.json";
 
   let task_description!: HTMLSpanElement;
 
@@ -1196,35 +1243,14 @@ const TasksInfo: Component<TaskInfoProps> = (props) => {
     }
   }
 
-  // truncate task description so it, at most, displays 3 lines
-  const truncate_task_description = () => {
-    if (task_description) {
-      const lineHeight = parseFloat(getComputedStyle(task_description).lineHeight);
-      const maxHeight = lineHeight * MAX_DESC_LINES;
-      task_description.style.maxHeight = `${maxHeight}px`;
-      task_description.style.overflow = "hidden";
-      task_description.style.textOverflow = "ellipsis";
-      task_description.style.display = "-webkit-box";
-      task_description.style.webkitBoxOrient = "vertical";
-      task_description.style.webkitLineClamp = MAX_DESC_LINES.toString();
-    }
-  };
-
   onMount(() => {
     load_task_data();
-
-    window.addEventListener("resize", truncate_task_description);
-    onCleanup(() => {
-      window.removeEventListener("resize", truncate_task_description);
-    })
   })
 
   createEffect(() => {
-    createEffect(() => {
-      if (tasks().length > 0 && task_description) {
-        truncate_task_description();
-      }
-    });
+    if (tasks().length > 0 && task_description) {
+      truncate_text(task_description, MAX_DESC_LINES);
+    }
   })
 
   return (
@@ -1261,6 +1287,240 @@ const TasksInfo: Component<TaskInfoProps> = (props) => {
         onclick={() => increment_task(true)}>{">"}</button>
     </div>
   )
+}
+
+type Player = {
+  name: string;
+  lives: number[];
+  deaths: Death[];
+  tasks: PlayerTask[];
+  tokens: number[];
+}
+
+type Death = {
+  time: number;
+  death_message: string;
+  session: number;
+}
+
+type PlayerTask = {
+  name: string;
+  description: string;
+  difficulty: number;
+  session: number;
+}
+
+const player_color_mapping: Record<number, string> = {
+  4: "#10a379",
+  3: "#28C878",
+  2: "#F4F19D",
+  1: "#C82843",
+  0: "#FFFFFF"
+}
+
+interface SLPlayerStatsProps {
+  current_player: Accessor<number>;
+  stats_mounted: Accessor<boolean>;
+  set_current_player: (player: number) => void;
+  set_skin_username: (skin: string) => void;
+}
+
+/**
+ * Player Stats component. This will display each player which the user can navigate through,
+ * showing their lives, deaths and tokens throughout the sessions.
+ * 
+ * @param current_player Accessor to the current player to display.
+ * @param stats_mounted Accessor to check if this current menu is open
+ * @param set_current_player Setter for the current player to display.
+ * @param set_skin_username Setter for the username of the skin drawing.
+ * @return JSX Component of the player stats.
+ */
+const SLPlayerStats: Component<SLPlayerStatsProps> = (props) => {
+  const [players, set_players] = createSignal<Player[]>([]);
+  const [current_death, set_current_death] = createSignal(0);
+  const [current_task, set_current_task] = createSignal(0);
+  const player = () => players()[props.current_player()];
+
+  const info_path = "assets/minecraft/secretlife/serverdata/playerbase.json";
+  let death_description!: HTMLSpanElement;
+  let task_description!: HTMLSpanElement;
+
+  // load the player data to display
+  const load_stats_info = () => {
+    fetch(info_path)
+      .then((response) => response.json())
+      .then((json) => {
+        const info_array = Object.values(json).map((player: any) => {
+          const { name, lives, deaths, tasks, tokens } = player;
+          return { name, lives, deaths, tasks, tokens };
+        })
+        set_players(info_array);
+      });
+  };
+
+  /**
+   * change current death. sometimes i think,
+   * i could group all this shit together, and
+   * then i remember that i don't want to do that.
+   */
+  const increment_death = (direction: boolean) => {
+    if (direction) {
+      set_current_death((current_death() + 1) % player().deaths.length);
+    } else {
+      set_current_death(
+        (current_death() + player().deaths.length - 1) % player().deaths.length
+      );
+    }
+  }
+
+  // change current player
+  const increment_player = (direction: boolean) => {
+    set_current_death(0);
+    set_current_task(0);
+
+    if (direction) {
+      props.set_current_player((props.current_player() + 1) % players().length);
+    } else {
+      props.set_current_player((props.current_player() + players().length - 1) % players().length);
+    }
+  }
+
+  // change current task
+  const increment_task = (direction: boolean) => {
+    if (direction) {
+      set_current_task((current_task() + 1) % player().tasks.length);
+    } else {
+      set_current_task(
+        (current_task() + player().tasks.length - 1) % player().tasks.length
+      );
+    }
+  }
+
+  onMount(() => {
+    load_stats_info();
+  })
+
+  // truncate descriptions for task and death depending on line length
+  createEffect(() => {
+    if (players().length > 0 && task_description && props.current_player() >= 0) {
+      truncate_text(death_description, MAX_DESC_DEATH_LINES);
+      truncate_text(task_description, MAX_DESC_PLAYER_LINES);
+    }
+  })
+
+  createEffect(() => {
+    if (props.stats_mounted()) {
+      props.set_skin_username(player().name);
+    }
+  })
+
+  return (
+    <div class={styles.description_player}>
+      {players().length > 0 ? (
+        <div class={styles.player_info}>
+          <div class={styles.player_header}>
+            <span class={styles.player_name_text}>
+              {player().name}
+            </span>
+            {player().deaths.length > 0 ?
+              (
+                <span class={styles.death_title}>
+                  {player().deaths.length > 1 && (
+                    <>
+                      <button class={`${styles.button} ${styles.left_button_deaths}`}
+                        onclick={() => increment_death(false)}>{"<"}</button>
+                      <button class={`${styles.button} ${styles.right_button_deaths}`}
+                        onclick={() => increment_death(true)}>{">"}</button>
+                    </>
+                  )}
+                  <span ref={death_description}>
+                    {player().deaths[current_death()].death_message}
+                  </span>
+                </span>
+              ) : (
+                <>No deaths available.</>
+              )}
+          </div>
+          <div class={styles.player_lives_tokens_wrapper}>
+            <span class={styles.player_lives_text}>
+              Lives:&nbsp;
+              {player().lives.map((life, index) => {
+                return (
+                  <>
+                    <span style={{ "color": player_color_mapping[life] }}>
+                      {life}
+                    </span>
+                    {index != player().lives.length - 1 && (
+                      " - "
+                    )}
+                  </>
+                );
+              })}
+            </span>
+            <span class={styles.player_tokens_text}>
+              Tokens:&nbsp;
+              {player().tokens.map((token, index) => {
+                return (
+                  <>
+                    {token}
+                    {index != player().tokens.length - 1 && (
+                      " - "
+                    )}
+                  </>
+                );
+              })}
+            </span>
+          </div>
+          {player().tasks.length > 0 ?
+            (
+              <div class={styles.task_wrapper}>
+                {player().tasks.length > 1 ? (
+                  <div class={styles.task_header}>
+                    <button class={`${styles.button} ${styles.left_button_tasks}`}
+                      onclick={() => increment_task(false)}>{"<"}</button>
+                    {
+                      <span style={{
+                        "color": task_color_mapping[
+                          player().tasks[current_task()].difficulty
+                        ]
+                      }}>
+                        {player().tasks[current_task()].name}
+                      </span>
+                    }
+                    <button class={`${styles.button} ${styles.right_button_tasks}`}
+                      onclick={() => increment_task(true)}>{">"}</button>
+                    {/* clicking on this will bring you to the task tab i guess */}
+                  </div>
+                ) : (
+                  <span class={styles.task_header_no_buttons}
+                    style={{
+                      "color": task_color_mapping[
+                        player().tasks[current_task()].difficulty
+                      ]
+                    }}>
+                    {player().tasks[current_task()].name}
+                  </span>
+                )}
+                <span ref={task_description}>
+                  {
+                    player().tasks[current_task()].description
+                  }
+                </span>
+              </div>
+            )
+            : (
+              <>No tasks available.</>
+            )}
+        </div>
+      ) : (
+        <>Loading...</>
+      )}
+      <button class={`${styles.button} ${styles.left_button_player}`}
+        onclick={() => increment_player(false)}>{"<"}</button>
+      <button class={`${styles.button} ${styles.right_button_player}`}
+        onclick={() => increment_player(true)}>{">"}</button>
+    </div>
+  );
 }
 
 interface CharacterProps {
@@ -1314,6 +1574,30 @@ const Background: Component = () => {
 
   return (
     <div class={styles.background}>
+    </div>
+  );
+}
+
+/**
+ * Night Life Info component. Shows the main information about the server such 
+ * as how it was created, a gallery, tasks, etc.
+ * 
+ * @return JSX Component for the Night Life info.
+ */
+const NightLifeInfo: Component = () => {
+  return (
+    <div class={styles.info}>
+      <p>
+        Night Life is an upcoming Minecraft event, similar to Secret Life, hosted weekly for University of Exeter students with an expected 30 active players per session.
+      </p>
+      <p>
+        Each player starts with 6 <LivesText>lives</LivesText>, which remain hidden at night. During the night, players cannot sleep or chat, and event messages (deaths, joins/leaves) are hidden. </p>
+      <p>
+        Like the "Last Life" series, a Boogeyman is randomly chosen each session. If the Boogeyman kills a player at night, the curse transfers to the victim.
+      </p>
+      <button class={`${styles.button_hidden} ${styles.more} ${styles.more_hidden}`}>
+        Read More
+      </button>
     </div>
   );
 }

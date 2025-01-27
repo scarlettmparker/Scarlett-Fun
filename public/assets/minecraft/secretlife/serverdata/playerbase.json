@@ -1,0 +1,2557 @@
+{
+  "TerrariaTrees": {
+    "deaths": [
+      {
+        "time": 1717518732,
+        "death_message": "TerrariaTrees was blown up by Creeper",
+        "session": 1
+      },
+      {
+        "time": 1718725435,
+        "death_message": "TerrariaTrees fell from a high place",
+        "session": 3
+      },
+      {
+        "time": 1719932914,
+        "death_message": "TerrariaTrees fell from a high place",
+        "session": 5
+      }
+    ],
+    "tokens": [
+      13,
+      24,
+      0,
+      16,
+      19,
+      19
+    ],
+    "lives": [
+      2,
+      2,
+      1,
+      1,
+      0,
+      0
+    ],
+    "tasks": [
+      {
+        "name": "24",
+        "description": "[SL] Lead someone on a wild goose chase that goes nowhere and wait for them to return empty handed.",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "75",
+        "description": "[SL] Announce in the chat that you are a genie and will grant 3 wishes. Only one wish per player. You succeed if you grant 3 wishes, however, you must get some part of the wish wrong (how much wrong is up to you, but it can't be something completely different). If you're unable to grant all 3 wishes by the end of the session, you fail.",
+        "difficulty": 1,
+        "session": 1
+      },
+      {
+        "name": "51",
+        "description": "leave your book in another person's base/chest thereby exposing your task. if you are that other player reading this book, announce to the chat that scarwe has completed their task.",
+        "difficulty": 0,
+        "session": 2
+      },
+      {
+        "name": "55",
+        "description": "You are now a weeping angel until the end of the session. If you're aware that someone is looking at you, you are not allowed to move until they stop looking at you.",
+        "difficulty": 1,
+        "session": 2
+      },
+      {
+        "name": "inconvenience",
+        "description": "You must be a mild inconvenience to {receiver} for the next 30 minutes (e.g. punch them randomly, light flint and steal nearby, steal their mob kills). You fail if you are called out even once.",
+        "difficulty": 0,
+        "session": 3
+      },
+      {
+        "name": "76",
+        "description": "Act as if you're in a TV show, and actively break the fourth wall as much as possible for the next hour. For example - applaud or boo when people arrive, turn to the side and talk to a non-existent audience, and then return to the conversation as if nothing happened. You fail if at least 2 people call you out within the hour.",
+        "difficulty": 1,
+        "session": 3
+      },
+      {
+        "name": "thanos",
+        "description": "Kill 4 green players, bringing them down to yellow lives.",
+        "difficulty": 2,
+        "session": 3
+      },
+      {
+        "name": "tag",
+        "description": "Win in a game of tag against {player}, {player} and {player}.",
+        "difficulty": 3,
+        "session": 3
+      },
+      {
+        "name": "unexpectedroommate",
+        "description": "Randomly move into someone's base who you are not teamed with, and become their roommate for at least an hour without them kicking you out. You don't have to do anything hostile to pass this task.",
+        "difficulty": 2,
+        "session": 4
+      },
+      {
+        "name": "fishingrod",
+        "description": "Hook a player with a fishing rod and threaten to throw them up into the air unless they pay you a fine in diamonds (price is up to your choice).",
+        "difficulty": 2,
+        "session": 4
+      },
+      {
+        "name": "communalbuild",
+        "description": "Convince 2 different players to 'help' you build a monument or communal building, then never place or destroy a single block yourself.",
+        "difficulty": 2,
+        "session": 4
+      },
+      {
+        "name": "campfire",
+        "description": "Replace the floor of someone's base entirely with campfires without their prior knowledge.",
+        "difficulty": 2,
+        "session": 5
+      },
+      {
+        "name": "badassassin",
+        "description": "Find a player to hire you to assassinate a player of their choice for a price. However, once you find them to attack them, fumble around and don't actually damage them (hit them with snowballs for example), but act as menancing as possible throughout.",
+        "difficulty": 2,
+        "session": 5
+      }
+    ],
+    "name": "TerrariaTrees",
+    "sessionTasks": 0,
+    "currentTask": "-1",
+    "shopping": false,
+    "punishments": [],
+    "zombie": false,
+    "shop": false,
+    "taskDescription": "Find a player to hire you to assassinate a player of their choice for a price. However, once you find them to attack them, fumble around and don't actually damage them (hit them with snowballs for example), but act as menancing as possible throughout.",
+    "nextTask": "-1",
+    "tagged": false
+  },
+  "scarwe": {
+    "deaths": [
+      {
+        "time": 1717512948,
+        "death_message": "scarwe was slain by Piglin Brute",
+        "session": 1
+      },
+      {
+        "time": 1718113067,
+        "death_message": "scarwe fell from a high place",
+        "session": 2
+      },
+      {
+        "time": 1718727453,
+        "death_message": "scarwe was slain by __waffle",
+        "session": 3
+      }
+    ],
+    "tokens": [
+      15,
+      15,
+      18,
+      20,
+      20,
+      39
+    ],
+    "lives": [
+      2,
+      1,
+      0,
+      0,
+      0,
+      0
+    ],
+    "tasks": [
+      {
+        "name": "Wokeism",
+        "description": "Have a 5 minute conversation with another player without using any pronouns. If you use a pronoun, restart the timer or go to another player.",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "59",
+        "description": "Starting with a grass seed, trade your way up to 2 golden apples. There's no minimum trade requirement for this task.",
+        "difficulty": 1,
+        "session": 1
+      },
+      {
+        "name": "buildbattle",
+        "description": "You must participate in a build battle against {player}, for any build of your choice. Get some players to judge the builds and the loser fails the task.",
+        "difficulty": 0,
+        "session": 2
+      },
+      {
+        "name": "71",
+        "description": "Before the end of the session, do a 50 block high boat clutch in front of everyone on the server. You may reveal this secret without failing. You must take off all armour before performing the clutch. You only get one attempt - no practice runs, and no totems allowed.",
+        "difficulty": 1,
+        "session": 2
+      },
+      {
+        "name": "88",
+        "description": "Mine a large hole underground and spleef a player into it, thereby damaging or killing them.",
+        "difficulty": 2,
+        "session": 2
+      },
+      {
+        "name": "93",
+        "description": "Enderpearl into a friendly conversation, and begin attacking players. If you're hit, or they run away, successfully hide from them for the next 5 minutes.",
+        "difficulty": 2,
+        "session": 2
+      },
+      {
+        "name": "84",
+        "description": "Summon any number of mobs using an egg to deal damage to TerrariaTrees.",
+        "difficulty": 2,
+        "session": 2
+      },
+      {
+        "name": "90",
+        "description": "Get another player to look at an enderman.",
+        "difficulty": 2,
+        "session": 2
+      },
+      {
+        "name": "94",
+        "description": "Name a weapon \"Scarlett Slayer\" and kill TerrariaTrees with it. If you kill them with this weapon, the death message will show in chat and you succeed the task.",
+        "difficulty": 2,
+        "session": 2
+      },
+      {
+        "name": "86",
+        "description": "use a redstone contraption to damage another player. you can't hit them with a redstone item, it must be some kind of trap or machine.",
+        "difficulty": 2,
+        "session": 2
+      },
+      {
+        "name": "rapbattle",
+        "description": "Participate in a rap battle against {player} and have a crowd of players vote whose performance was better.",
+        "difficulty": 3,
+        "session": 3
+      },
+      {
+        "name": "79",
+        "description": "Place lava on someone. If it doesn't kill them, you must then place lava on another player for a total of 2 players. You complete the task if you kill the first player or lava 2 players in total.",
+        "difficulty": 2,
+        "session": 3
+      },
+      {
+        "name": "82",
+        "description": "Get any yellow name to team with you (you may tell them about this task). They must then kill any player of choice with your help. They must either get the kill credit or deal a significant amount of damage for you to succeed.",
+        "difficulty": 2,
+        "session": 3
+      },
+      {
+        "name": "87",
+        "description": "Punch another player into a natural lava source.",
+        "difficulty": 2,
+        "session": 3
+      },
+      {
+        "name": "97",
+        "description": "Kill a player's pet (e.g. wolf, fish, horse) while they're near it. If they don't have a pet, convince them to get one, name it, and then kill it. Once you've killed their pet, try to kill them as well shortly after.",
+        "difficulty": 2,
+        "session": 3
+      },
+      {
+        "name": "danger",
+        "description": "Create a dangerous mini-game and convince as many players as possible to participate in it. You pass the task if at least 1 player takes any damage while playing your mini-game by the end of the session.",
+        "difficulty": 0,
+        "session": 3
+      }
+    ],
+    "name": "scarwe",
+    "sessionTasks": 0,
+    "currentTask": "-1",
+    "shopping": false,
+    "punishments": [],
+    "zombie": false,
+    "shop": false,
+    "nextTask": "-1",
+    "taskDescription": "Steal something from someone's base without them noticing and then sell it back to them."
+  },
+  "Pink_Jellyfish": {
+    "deaths": [
+      {
+        "time": 1720540521,
+        "death_message": "Pink_Jellyfish was slain by SigmaPilled",
+        "session": 6
+      }
+    ],
+    "tokens": [
+      9,
+      9,
+      10,
+      0,
+      0,
+      0
+    ],
+    "lives": [
+      3,
+      3,
+      3,
+      4,
+      4,
+      3
+    ],
+    "tasks": [
+      {
+        "name": "3",
+        "description": "Don't call any mobs by their name for the next hour.",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "5",
+        "description": "[SL] Compliment someone whenever you see them take damage, for a total of 5 compliments. If you're called out, that player doesn't count.",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "grinch",
+        "description": "You are the grinch. Someone on this server will be attempting to give 4 different players presents at spawn, and you must intercept them. You win even if you only steal 1 present, and must inform the present giver that they've failed their task.",
+        "difficulty": 0,
+        "session": 3
+      },
+      {
+        "name": "piston",
+        "description": "You must install a piston door to another players base without their consent. If a person gives you consent, you must stop building and move on to another player.",
+        "difficulty": 0,
+        "session": 3
+      },
+      {
+        "name": "basegift",
+        "description": "Build someone a base as a gift, but build it completely out of dirt (and dirt variants). It can be as nice or as ugly as you like, but they must accept the gift for you to succeed. You fail if 3 people reject the gift.",
+        "difficulty": 0,
+        "session": 4
+      },
+      {
+        "name": "annoyingblocks",
+        "description": "You must 'accidently' place a block directly in the way of at least 3 players while they are moving, at least 3 times for each player.",
+        "difficulty": 0,
+        "session": 4
+      },
+      {
+        "name": "masterbuilder",
+        "description": "For this session, you are now a master designer. Convince as many players as possible that there is something wrong with their base design and get them to change it. You pass the task if you get at least 3 players to change their base.",
+        "difficulty": 0,
+        "session": 5
+      },
+      {
+        "name": "adlibber",
+        "description": "Adlib whatever {receiver} says in game for at least 20 minutes. Whenever they say something, add an extra useless word or 2, agreeing with them. (e.g. shout \"heck yes\" after they say something).",
+        "difficulty": 0,
+        "session": 5
+      },
+      {
+        "name": "invisiblemob",
+        "description": "Get someone to believe you have a pet mob that's somehow invisible/unrendered for them.",
+        "difficulty": 0,
+        "session": 6
+      }
+    ],
+    "name": "Pink_Jellyfish",
+    "sessionTasks": 0,
+    "currentTask": "-1",
+    "shopping": false,
+    "punishments": [],
+    "zombie": false,
+    "shop": false,
+    "nextTask": "-1",
+    "taskDescription": "Get someone to believe you have a pet mob that's somehow invisible/unrendered for them."
+  },
+  "RavingRaven43453": {
+    "deaths": [
+      {
+        "time": 1717508001,
+        "death_message": "RavingRaven43453 was slain by Piglin Brute",
+        "session": 1
+      },
+      {
+        "time": 1718114021,
+        "death_message": "RavingRaven43453 was slain by scarwe using \u00c2\u00a7f[\u00c2\u00a7oScarlett Slayer\u00c2\u00a7f]",
+        "session": 2
+      },
+      {
+        "time": 1718725965,
+        "death_message": "RavingRaven43453 was shot by Zylphys",
+        "session": 3
+      },
+      {
+        "time": 1719320040,
+        "death_message": "RavingRaven43453 hit the ground too hard while trying to escape Enderman",
+        "session": 4
+      },
+      {
+        "time": 1719329332,
+        "death_message": "RavingRaven43453 hit the ground too hard while trying to escape Warden",
+        "session": 4
+      }
+    ],
+    "tokens": [
+      15,
+      11,
+      16,
+      9,
+      9,
+      9
+    ],
+    "lives": [
+      2,
+      1,
+      1,
+      0,
+      0,
+      0
+    ],
+    "tasks": [
+      {
+        "name": "raven",
+        "description": "Give nether wart that you have collected by yourself to a player of your choice before the end of the session.",
+        "difficulty": 3,
+        "session": 1
+      },
+      {
+        "name": "2",
+        "description": "[SL] Dig a hole at least 3x3 wide down to Y = 0. It can be your base if you want.",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "96",
+        "description": "Rip someone off with the worst trade they could possibly do.",
+        "difficulty": 2,
+        "session": 2
+      },
+      {
+        "name": "99",
+        "description": "Take over somebody's house and get them to pay rent in diamonds (price is your choice) lest they get evicted or killed. You complete the task once they give you the diamonds.",
+        "difficulty": 2,
+        "session": 2
+      },
+      {
+        "name": "78",
+        "description": "Trap another player. It can be placed in a base or elsewhere, the only condition is it must kill another player without that player's prior knowledge of said trap.",
+        "difficulty": 2,
+        "session": 2
+      },
+      {
+        "name": "100",
+        "description": "Build a diving board that leads to a small (maximum 3x3) pool of water. Convince players to jump off of it for a prize, but when they go to jump, punch them to throw off their balance. You complete this task once someone dies from the board.",
+        "difficulty": 2,
+        "session": 2
+      },
+      {
+        "name": "85",
+        "description": "you are now Pink_Jellyfish's assassin. brew or purchase an invisibility potion and kill them without them figuring out who you are. if you're figured out, you fail the task.",
+        "difficulty": 2,
+        "session": 2
+      },
+      {
+        "name": "95",
+        "description": "Create an elaborate sky base (at least Y = 200) and place this book inside a trapped chest. Once the chest is opened, the player reading this book should be trapped in a way that kills them.",
+        "difficulty": 2,
+        "session": 3
+      },
+      {
+        "name": "89",
+        "description": "Repeatedly fire arrows from an un-enchanted bow at someone until they start blocking. If you kill them, you also succeed.",
+        "difficulty": 2,
+        "session": 3
+      },
+      {
+        "name": "83",
+        "description": "You must convince anyone you encounter that scarwe is a deadly threat and is out to kill you. You must form an allyship with at least 2 other players and your only goal is to kill them together.",
+        "difficulty": 2,
+        "session": 3
+      },
+      {
+        "name": "tag",
+        "description": "Win in a game of tag against {player}, {player} and {player}.",
+        "difficulty": 3,
+        "session": 4
+      },
+      {
+        "name": "gaslightfriendship",
+        "description": "Gaslight as many players as you can into not trusting each other. You pass the task if you manage to get at least one player to say something bad about their friend.",
+        "difficulty": 2,
+        "session": 4
+      }
+    ],
+    "name": "RavingRaven43453",
+    "sessionTasks": 0,
+    "currentTask": "-1",
+    "shopping": false,
+    "punishments": [],
+    "zombie": false,
+    "shop": false,
+    "nextTask": "-1",
+    "taskDescription": "Do the opposite of what everyone tells you to do for the next 2 hours.",
+    "tagged": true
+  },
+  "OrcaHedral": {
+    "deaths": [
+      {
+        "time": 1717517743,
+        "death_message": "OrcaHedral tried to swim in lava",
+        "session": 1
+      },
+      {
+        "time": 1718725119,
+        "death_message": "OrcaHedral was slain by DejiLikesFizz using \u00c2\u00a7b[\u00c2\u00a7oSOUL SNATCHER\u00c2\u00a7b]",
+        "session": 3
+      },
+      {
+        "time": 1720541630,
+        "death_message": "OrcaHedral was slain by koopafan69 using \u00a7b[\u00a7oFencing Sabre\u00a7b]",
+        "session": 6
+      }
+    ],
+    "tokens": [
+      0,
+      4,
+      26,
+      0,
+      0,
+      0
+    ],
+    "lives": [
+      2,
+      2,
+      1,
+      2,
+      2,
+      2
+    ],
+    "tasks": [
+      {
+        "name": "40",
+        "description": "[SL] Become OperationDusty's absolute best friend for the next 30 minutes and don't get called out. If you get called out, switch to any other player and reset the timer or fail the task (your choice).",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "18",
+        "description": "Make 3 bad jokes and get NO laughs.",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "meow",
+        "description": "Meow once during a conversation without being called out/someone esle meowing. If called out, try again in a different conversation (preferably with other players).",
+        "difficulty": 0,
+        "session": 2
+      },
+      {
+        "name": "15",
+        "description": "[SL] Call people anything other than their name/username for the next hour.",
+        "difficulty": 0,
+        "session": 3
+      },
+      {
+        "name": "boogey",
+        "description": "You are the boogeyman. Kill a green player of your choice before the end of the session. If you fail, you will lose a life.",
+        "difficulty": 0,
+        "session": 3
+      },
+      {
+        "name": "prison",
+        "description": "Team up with another red/yellow player, and build a small prison with at least 2 holding cells. You should trap 2 other non-red players there and force them to fist fight to the death for their freedom.",
+        "difficulty": 2,
+        "session": 3
+      },
+      {
+        "name": "77",
+        "description": "Drink invisibility and punch a green name so that they fall a large distance, thereby damaging or killing them.",
+        "difficulty": 2,
+        "session": 3
+      },
+      {
+        "name": "89",
+        "description": "Repeatedly fire arrows from an un-enchanted bow at someone until they start blocking. If you kill them, you also succeed.",
+        "difficulty": 2,
+        "session": 3
+      },
+      {
+        "name": "85",
+        "description": "you are now Pink_Jellyfish's assassin. brew or purchase an invisibility potion and kill them without them figuring out who you are. if you're figured out, you fail the task.",
+        "difficulty": 2,
+        "session": 3
+      },
+      {
+        "name": "87",
+        "description": "Punch another player into a natural lava source.",
+        "difficulty": 2,
+        "session": 3
+      },
+      {
+        "name": "81",
+        "description": "Do any amount of damage to a non-red name with an anvil. If you kill them, you also succeed.",
+        "difficulty": 2,
+        "session": 3
+      },
+      {
+        "name": "socialdeduction",
+        "description": "You are now in a social deduction game with {player}, {player}, {player} and {player}. Come up with a social deduction game of your choice (e.g. Town of Salem) and play until a player in the made-up game dies.",
+        "difficulty": 3,
+        "session": 4
+      },
+      {
+        "name": "mimic",
+        "description": "You are a mimic for the next hour. You must join in on any bit or joke that's going on, even if you aren't a part of it and don't understand it.",
+        "difficulty": 0,
+        "session": 4
+      },
+      {
+        "name": "puzzled",
+        "description": "For the next hour, you are perpetually confused. Act like you have no idea what's happening, why are things going the way they are, what goes around you - like a clueless child.",
+        "difficulty": 0,
+        "session": 5
+      }
+    ],
+    "name": "OrcaHedral",
+    "sessionTasks": 0,
+    "currentTask": "-1",
+    "shopping": false,
+    "punishments": [],
+    "zombie": false,
+    "shop": false,
+    "nextTask": "-1",
+    "taskDescription": "Build a house of prophecies. There, you should inform at least 3 players of their near-future by predicting what will happen to them. However, you should be the one to make that future a reality. For example, \"in 5 seconds you shall receive a carrot.\""
+  },
+  "Spectral_Blue": {
+    "deaths": [
+      {
+        "time": 1719924736,
+        "death_message": "Spectral_Blue fell from a high place",
+        "session": 5
+      }
+    ],
+    "tokens": [
+      12,
+      22,
+      28,
+      34,
+      40,
+      40
+    ],
+    "lives": [
+      3,
+      3,
+      3,
+      3,
+      2,
+      2
+    ],
+    "tasks": [
+      {
+        "name": "43",
+        "description": "Talk like a YouTuber/TikTok influencer for the 3 conversations you're in.",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "13",
+        "description": "Convince someone to take a leap of faith. You succeed if they do so and take no damage.",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "reference",
+        "description": "You must make at least 5 references to any movie in various conversations. If someone understands even one reference, you succeed, but you'll fail if nobody knows them.",
+        "difficulty": 0,
+        "session": 3
+      },
+      {
+        "name": "renovation",
+        "description": "Ask someone for help renovating your base.",
+        "difficulty": 0,
+        "session": 4
+      },
+      {
+        "name": "cleanup",
+        "description": "For the next hour, you are the janitor of the server. Clean up the mess around spawn, cut down trees, and make the place look tidier. You may recruit the help of other players to complete this task.",
+        "difficulty": 0,
+        "session": 5
+      },
+      {
+        "name": "completebasejon",
+        "description": "Complete your base by the end of the session. You may employ the help of as many people as you wish.",
+        "difficulty": 0,
+        "session": 6
+      }
+    ],
+    "name": "Spectral_Blue",
+    "sessionTasks": 0,
+    "currentTask": "-1",
+    "shopping": false,
+    "punishments": [],
+    "zombie": false,
+    "shop": false,
+    "nextTask": "completebasejon",
+    "taskDescription": "Complete your base by the end of the session. You may employ the help of as many people as you wish."
+  },
+  "LightingLord854": {
+    "deaths": [
+      {
+        "time": 1719928153,
+        "death_message": "LightingLord854 was doomed to fall",
+        "session": 5
+      },
+      {
+        "time": 1719933522,
+        "death_message": "LightingLord854 was slain by Zylphys using \u00a7b[\u00a7o\ud835\udd17\ud835\udd25\ud835\udd22 \ud835\udd05\ud835\udd2f\ud835\udd1e\ud835\udd30\ud835\udd30 \ud835\udd12\ud835\udd2f\ud835\udd21\ud835\udd1e\ud835\udd2b\ud835\udd1e\ud835\udd2b\ud835\udd20\ud835\udd22\u00a7b]",
+        "session": 5
+      },
+      {
+        "time": 1720541628,
+        "death_message": "LightingLord854 hit the ground too hard while trying to escape OrcaHedral",
+        "session": 6
+      }
+    ],
+    "tokens": [
+      1,
+      1,
+      6,
+      12,
+      13,
+      18
+    ],
+    "lives": [
+      3,
+      3,
+      4,
+      4,
+      1,
+      1
+    ],
+    "tasks": [
+      {
+        "name": "41",
+        "description": "You have now become a very indecisive introvert. For the next hour, if anybody tries to talk to you, run away and appear actively afraid, but then return almost immediately to the conversation.",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "53",
+        "description": "You are Daisyrebelle's terrible butler for the next hour. You must do anything they say, but get some aspect of it wrong. You can tell them you are their butler, but not anything else, and if you're figured out you fail.",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "megalovania",
+        "description": "For the next hour, you must hum the first 4 notes of megalovania every 5 minutes",
+        "difficulty": 0,
+        "session": 3
+      },
+      {
+        "name": "book",
+        "description": "You must get rid of this book if it's in your inventory, by giving it to another player. If you throw it and nobody else picks it up, you must pick the book back up - as it must always remain in someone's inventory. If you have this book in your inventory by the end of the session, you will receive a hard task next session. If you're {sender}, you must keep one inventory slot open, and get rid of this book!",
+        "difficulty": 3,
+        "session": 4
+      },
+      {
+        "name": "cleanup",
+        "description": "For the next hour, you are the janitor of the server. Clean up the mess around spawn, cut down trees, and make the place look tidier. You may recruit the help of other players to complete this task.",
+        "difficulty": 0,
+        "session": 5
+      },
+      {
+        "name": "suspiciousbutton",
+        "description": "Super suspiciously press a button mid-conversation and trick players into believing it's a trap. You succeed if nobody presses the button.",
+        "difficulty": 2,
+        "session": 5
+      }
+    ],
+    "name": "LightingLord854",
+    "sessionTasks": 0,
+    "currentTask": "-1",
+    "shopping": false,
+    "punishments": [],
+    "zombie": true,
+    "shop": false,
+    "nextTask": "-1",
+    "taskDescription": "Finish building your treehouse/base by the end of the session so that a nice picture can be taken of it. You may request any type of log or leaves from Scarlett that aren't currently in the shop, or found in the world, for a small token price."
+  },
+  "DejiLikesFizz": {
+    "deaths": [
+      {
+        "time": 1719926683,
+        "death_message": "DejiLikesFizz was shot by Daisyrebelle",
+        "session": 5
+      },
+      {
+        "time": 1719930682,
+        "death_message": "DejiLikesFizz hit the ground too hard while trying to escape Zylphys",
+        "session": 5
+      }
+    ],
+    "tokens": [
+      6,
+      2,
+      8,
+      9,
+      9,
+      5
+    ],
+    "lives": [
+      3,
+      3,
+      3,
+      3,
+      2,
+      1
+    ],
+    "tasks": [
+      {
+        "name": "0",
+        "description": "Get a minimum of 3 players to give you a total of at least 10 gravel.",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "25",
+        "description": "Leave cryptic signs at 5 different people's bases. If someone calls you out, that person doesn't count.",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "presents",
+        "description": "Lead at least 4 players (one at a time) to spawn. You must then give them a gift/present of your choice, but it must be something that can be thrown and picked up (like an item).",
+        "difficulty": 0,
+        "session": 3
+      },
+      {
+        "name": "badMic",
+        "description": "You must convince somebody that you are currently having issues with your microphone. You succeed when you get three different solutions to your \"mic issues\".",
+        "difficulty": 0,
+        "session": 3
+      },
+      {
+        "name": "socialdeduction",
+        "description": "You are now in a social deduction game with {player}, {player}, {player} and {player}. Come up with a social deduction game of your choice (e.g. Town of Salem) and play until a player in the made-up game dies.",
+        "difficulty": 3,
+        "session": 4
+      },
+      {
+        "name": "wwjd",
+        "description": "Get three other players to say \"What would Jon do?\"",
+        "difficulty": 0,
+        "session": 4
+      },
+      {
+        "name": "infection",
+        "description": "You are patient zero of the infection. Kill a player to infect them, and they must help you to bring every green name to a yellow name. Infected players cannot help out uninfected players. You have 2 hours to infect every green life.",
+        "difficulty": 3,
+        "session": 5
+      },
+      {
+        "name": "buttonpress",
+        "description": "Place a button mid-conversation, and get at least four other players to press it within 10 seconds of placing it.",
+        "difficulty": 0,
+        "session": 6
+      }
+    ],
+    "name": "DejiLikesFizz",
+    "sessionTasks": 0,
+    "currentTask": "-1",
+    "shopping": false,
+    "punishments": [],
+    "zombie": false,
+    "shop": false,
+    "nextTask": "-1",
+    "taskDescription": "Place a button mid-conversation, and get at least four other players to press it within 10 seconds of placing it."
+  },
+  "Aryid": {
+    "deaths": [
+      {
+        "time": 1718714410,
+        "death_message": "Aryid was slain by Zylphys",
+        "session": 3
+      },
+      {
+        "time": 1719321036,
+        "death_message": "Aryid was slain by DejiLikesFizz using \u00c2\u00a7b[\u00c2\u00a7oSOUL SNATCHER\u00c2\u00a7b]",
+        "session": 4
+      },
+      {
+        "time": 1720540890,
+        "death_message": "Aryid was killed by [Intentional Game Design]",
+        "session": 6
+      }
+    ],
+    "tokens": [
+      6,
+      23,
+      0,
+      3,
+      12,
+      30
+    ],
+    "lives": [
+      3,
+      3,
+      3,
+      3,
+      3,
+      2
+    ],
+    "tasks": [
+      {
+        "name": "9",
+        "description": "Jumpscare another player.",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "6",
+        "description": "[SL] Every time you see someone take damage, warn them a bit too late that they are about to be damaged or tell them how they could have avoided it, for a total of 5 times.  If you're called out, that player doesn't count.",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "47",
+        "description": "Back seat {receiver}'s game for the next 10 minutes. If they call you out, move onto another player, for a maximum of 3 attempts before failure.",
+        "difficulty": 0,
+        "session": 2
+      },
+      {
+        "name": "policy",
+        "description": "You must enact one of the policies that you promised to deliver on during the previous session. Give at least half the members of the server a bed before the end of the session.",
+        "difficulty": 3,
+        "session": 3
+      },
+      {
+        "name": "ugly",
+        "description": "Make a build that is deeply uncomfortable to use and look at. To pass the task, another player has to insult you for building said build. For a yellow name to make you fail, they need to guess that your goal is to get insulted.",
+        "difficulty": 0,
+        "session": 3
+      },
+      {
+        "name": "socialdeduction",
+        "description": "You are now in a social deduction game with {player}, {player}, {player} and {player}. Come up with a social deduction game of your choice (e.g. Town of Salem) and play until a player in the made-up game dies.",
+        "difficulty": 3,
+        "session": 4
+      },
+      {
+        "name": "friendship",
+        "description": "Find a red life, or someone who is currently your enemy on their server, and make any kind of build with them (must be of some significance, the build can't just be a few blocks).",
+        "difficulty": 0,
+        "session": 4
+      },
+      {
+        "name": "basecopy",
+        "description": "Copy another player's base, block for block.",
+        "difficulty": 0,
+        "session": 5
+      },
+      {
+        "name": "interview",
+        "description": "Interview at least 3 players on the server about their experience in the Secret Life server thus far, but ask them nonsense questions or make them recall events that never actually happened.",
+        "difficulty": 0,
+        "session": 5
+      },
+      {
+        "name": "thatjusthappened",
+        "description": "Say \"well, that just happened\" as many times in a conversation as you can without getting caught. You succeed if you say it at least 5 times in a conversation without getting caught.",
+        "difficulty": 0,
+        "session": 6
+      },
+      {
+        "name": "54",
+        "description": "You cannot deny any request or question from another player. You must say yes for the next 2 hours (unless it breaks the rules).",
+        "difficulty": 1,
+        "session": 6
+      }
+    ],
+    "name": "Aryid",
+    "sessionTasks": 0,
+    "currentTask": "-1",
+    "shopping": false,
+    "punishments": [],
+    "zombie": false,
+    "shop": false,
+    "nextTask": "-1",
+    "taskDescription": "You cannot deny any request or question from another player. You must say yes for the next 2 hours (unless it breaks the rules)."
+  },
+  "OperationDusty": {
+    "deaths": [
+      {
+        "time": 1718121604,
+        "death_message": "OperationDusty was doomed to fall by RavingRaven43453",
+        "session": 2
+      }
+    ],
+    "tokens": [
+      0,
+      12,
+      24,
+      34,
+      34,
+      36
+    ],
+    "lives": [
+      3,
+      2,
+      3,
+      3,
+      3,
+      1
+    ],
+    "tasks": [
+      {
+        "name": "1",
+        "description": "Tell a story and get someone to leave before you finish it.",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "49",
+        "description": "Move into someone else's house and get them to evict you.",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "28",
+        "description": "Convince a yellow name your task is to speak in rhyme.",
+        "difficulty": 0,
+        "session": 2
+      },
+      {
+        "name": "20",
+        "description": "Move 5 people's chests at least once. If someone calls you out, that person doesn't count.",
+        "difficulty": 0,
+        "session": 2
+      },
+      {
+        "name": "boogey",
+        "description": "You are the boogeyman. Kill a green player of your choice before the end of the session. If you fail, you will lose a life.",
+        "difficulty": 0,
+        "session": 3
+      },
+      {
+        "name": "bet",
+        "description": "Make a bet with {receiver} and win. It doesn't matter what the bet is.",
+        "difficulty": 0,
+        "session": 3
+      },
+      {
+        "name": "socialdeduction",
+        "description": "You are now in a social deduction game with {player}, {player}, {player} and {player}. Come up with a social deduction game of your choice (e.g. Town of Salem) and play until a player in the made-up game dies.",
+        "difficulty": 3,
+        "session": 4
+      },
+      {
+        "name": "stick",
+        "description": "Have a stick in your offhand during every conversation you participate in for the next hour. You can not talk to other players without it - you're physically mute without it. If you forget this, and talk to players without the stick, you fail.",
+        "difficulty": 0,
+        "session": 4
+      },
+      {
+        "name": "faketeammate",
+        "description": "Convince another player that your task has an exception that allows you to tell them what it is, and that they're a part of it. Make them do a silly made-up task with you.",
+        "difficulty": 0,
+        "session": 6
+      }
+    ],
+    "name": "OperationDusty",
+    "sessionTasks": 0,
+    "currentTask": "-1",
+    "shopping": false,
+    "punishments": [],
+    "zombie": false,
+    "shop": false,
+    "nextTask": "-1",
+    "taskDescription": "Convince another player that your task has an exception that allows you to tell them what it is, and that they're a part of it. Make them do a silly made-up task with you."
+  },
+  "Daisyrebelle": {
+    "deaths": [
+      {
+        "time": 1718725659,
+        "death_message": "Daisyrebelle was slain by Invictus_Delta",
+        "session": 3
+      },
+      {
+        "time": 1719319989,
+        "death_message": "Daisyrebelle was doomed to fall by Ender Dragon",
+        "session": 4
+      },
+      {
+        "time": 1719932148,
+        "death_message": "Daisyrebelle was shot by LightingLord854 using \u00a7b[\u00a7oOrion MKII\u00a7b]",
+        "session": 5
+      }
+    ],
+    "tokens": [
+      0,
+      0,
+      4,
+      4,
+      2,
+      2
+    ],
+    "lives": [
+      3,
+      3,
+      2,
+      2,
+      2,
+      2
+    ],
+    "tasks": [
+      {
+        "name": "48",
+        "description": "[SL] Paranoia. For the next hour, whenever you talk to another player, you must pretend that someone else is nearby or following you.",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "39",
+        "description": "[SL] Make a pun at every opportunity during a conversation. You must make at least 3 successful puns within a 5 minute time-span.",
+        "difficulty": 0,
+        "session": 2
+      },
+      {
+        "name": "stare",
+        "description": "Follow and stare at {receiver} from afar using a spyglass for as long as you can during this session. If anyone notices you, the timer stops. You pass the task if you manage to keep it up unnoticed for at least 10 minutes.",
+        "difficulty": 0,
+        "session": 3
+      },
+      {
+        "name": "socialdeduction",
+        "description": "You are now in a social deduction game with {player}, {player}, {player} and {player}. Come up with a social deduction game of your choice (e.g. Town of Salem) and play until a player in the made-up game dies.",
+        "difficulty": 3,
+        "session": 4
+      },
+      {
+        "name": "structuregaslight",
+        "description": "Build some sort of structure and then proceed to convince another player that they in fact built the structure. Do this as many times as possible, and you pass when someone else accepts that they built it.",
+        "difficulty": 0,
+        "session": 4
+      },
+      {
+        "name": "piratespeak",
+        "description": "Change your game language to 'Pirate Speak' for the next 2 hours. In conversation, you must only refer to items by their pirate names.",
+        "difficulty": 0,
+        "session": 5
+      }
+    ],
+    "name": "Daisyrebelle",
+    "sessionTasks": 0,
+    "currentTask": "-1",
+    "shopping": false,
+    "punishments": [],
+    "zombie": false,
+    "shop": false,
+    "taskDescription": "Change your game language to 'Pirate Speak' for the next 2 hours. In conversation, you must only refer to items by their pirate names.",
+    "nextTask": "-1"
+  },
+  "Invictus_Delta": {
+    "deaths": [
+      {
+        "time": 1718725747,
+        "death_message": "Invictus_Delta drowned",
+        "session": 3
+      },
+      {
+        "time": 1720541964,
+        "death_message": "Invictus_Delta fell from a high place",
+        "session": 6
+      }
+    ],
+    "tokens": [
+      0,
+      9,
+      8,
+      14,
+      4,
+      4
+    ],
+    "lives": [
+      3,
+      3,
+      2,
+      2,
+      2,
+      1
+    ],
+    "tasks": [
+      {
+        "name": "31",
+        "description": "For the next 3 conversations you have, you must at some point speak in rhyme (minimum 2 rhymes for the conversation). If you're called out, that conversation doesn't count.",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "buildbattle",
+        "description": "You must participate in a build battle against {player}, for any build of your choice. Get some players to judge the builds and the loser fails the task.",
+        "difficulty": 0,
+        "session": 2
+      },
+      {
+        "name": "newsociety",
+        "description": "You are quite unhappy that an election has taken place, and wish to start your own society (or join one) separate from the ruling of the server's president. Start your own nation and invite 2 other players to join you, or join an existing one.",
+        "difficulty": 0,
+        "session": 3
+      },
+      {
+        "name": "bodyguard",
+        "description": "You are now the president's devout bodyguard. You must protect them at all costs, as there may be someone out to get them. You fail this task if the president dies.",
+        "difficulty": 3,
+        "session": 3
+      },
+      {
+        "name": "parkour",
+        "description": "Build a 25-block parkour course with {player}, and compete for the fastest time between the two of you. You should have a maximum of 3 attempts each.",
+        "difficulty": 3,
+        "session": 3
+      },
+      {
+        "name": "fakeyellowbait",
+        "description": "Bait a yellow player into thinking that your task is to bait a yellow player.",
+        "difficulty": 0,
+        "session": 4
+      },
+      {
+        "name": "items",
+        "description": "Get 5 players you aren't allied with to give you an item of your choice (must be a different item per player). Place all of the items you obtained on a wall in your base. If you have no base, build one.",
+        "difficulty": 0,
+        "session": 5
+      },
+      {
+        "name": "differentdoortype",
+        "description": "Switch the door wood type of the bases of at least three different players without them noticing.",
+        "difficulty": 0,
+        "session": 6
+      }
+    ],
+    "name": "Invictus_Delta",
+    "sessionTasks": 0,
+    "currentTask": "-1",
+    "shopping": false,
+    "punishments": [],
+    "zombie": false,
+    "shop": false,
+    "taskDescription": "Switch the door wood type of the bases of at least three different players without them noticing.",
+    "nextTask": "-1"
+  },
+  "koopafan69": {
+    "deaths": [
+      {
+        "time": 1718718399,
+        "death_message": "koopafan69 was slain by OperationDusty",
+        "session": 3
+      },
+      {
+        "time": 1718725822,
+        "death_message": "koopafan69 was slain by scarwe using \u00c2\u00a7b[\u00c2\u00a7oScarlett Slayer\u00c2\u00a7b]",
+        "session": 3
+      },
+      {
+        "time": 1719323679,
+        "death_message": "koopafan69 was slain by Spectralwraith",
+        "session": 4
+      }
+    ],
+    "tokens": [
+      6,
+      18,
+      24,
+      7,
+      7,
+      7
+    ],
+    "lives": [
+      3,
+      3,
+      1,
+      1,
+      1,
+      1
+    ],
+    "tasks": [
+      {
+        "name": "42",
+        "description": "[SL] Ask for a specific item 5 times in one conversation but never pick it up, and don't get called out. If you get called out or pick up the item, reset the count and choose a different item.",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "46",
+        "description": "[SL] Say a line/lyric from Smash Mouth's \"All Star\" in at least 3 different conversations. Each line/lyric must be different for each conversation. If someone calls you out, that conversation doesn't count",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "19",
+        "description": "[SL] Move 5 people's doors at least once. If someone calls you out, that person doesn't count.",
+        "difficulty": 0,
+        "session": 2
+      },
+      {
+        "name": "grinch",
+        "description": "You are the grinch. Someone on this server will be attempting to give 4 different players presents at spawn, and you must intercept them. You win even if you only steal 1 present, and must inform the present giver that they've failed their task.",
+        "difficulty": 0,
+        "session": 2
+      },
+      {
+        "name": "compliments",
+        "description": "Give 3 nonsense compliments to 3 separate players, and get them to thank you. For example, stare at them longingly and say \"has anyone ever told you that you have 2 eyes?\".",
+        "difficulty": 0,
+        "session": 2
+      },
+      {
+        "name": "conspiracy",
+        "description": "Make up a completely nonsensical conspiracy theory and get someone to believe it.",
+        "difficulty": 0,
+        "session": 3
+      },
+      {
+        "name": "narrator",
+        "description": "Narrate {receiver}'s game for the next 30 minutes.",
+        "difficulty": 0,
+        "session": 3
+      },
+      {
+        "name": "prison",
+        "description": "Team up with another red/yellow player, and build a small prison with at least 2 holding cells. You should trap 2 other non-red players there and force them to fist fight to the death for their freedom.",
+        "difficulty": 2,
+        "session": 3
+      },
+      {
+        "name": "tag",
+        "description": "Win in a game of tag against {player}, {player} and {player}.",
+        "difficulty": 3,
+        "session": 3
+      },
+      {
+        "name": "rumour",
+        "description": "Start a rumour. To pass this task, you must hear the rumour from another player (one you haven't told the rumour to).",
+        "difficulty": 2,
+        "session": 4
+      }
+    ],
+    "name": "koopafan69",
+    "sessionTasks": 0,
+    "currentTask": "-1",
+    "shopping": false,
+    "punishments": [],
+    "zombie": false,
+    "shop": false,
+    "nextTask": "-1",
+    "taskDescription": "Start a rumour. To pass this task, you must hear the rumour from another player (one you haven't told the rumour to).",
+    "tagged": false
+  },
+  "qeewifruit": {
+    "deaths": [],
+    "tokens": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "lives": [
+      3,
+      3,
+      3,
+      3,
+      3,
+      3
+    ],
+    "tasks": [
+      {
+        "name": "Pokemon",
+        "description": "Get another player to talk about the Exeter VGS Draft League for 1 minute.",
+        "difficulty": 0,
+        "session": 1
+      }
+    ],
+    "name": "qeewifruit",
+    "sessionTasks": 0,
+    "currentTask": "-1",
+    "shopping": false,
+    "punishments": [],
+    "zombie": false,
+    "shop": false
+  },
+  "Nitura": {
+    "deaths": [
+      {
+        "time": 1717509583,
+        "death_message": "Nitura was slain by Vindicator",
+        "session": 1
+      },
+      {
+        "time": 1718111020,
+        "death_message": "Nitura fell from a high place",
+        "session": 2
+      },
+      {
+        "time": 1718726898,
+        "death_message": "Nitura was slain by scarwe using \u00c2\u00a7b[\u00c2\u00a7oscarwe\u00c2\u00a7b]",
+        "session": 3
+      },
+      {
+        "time": 1720539420,
+        "death_message": "Nitura was slain by LightingLord854",
+        "session": 6
+      },
+      {
+        "time": 1720539458,
+        "death_message": "Nitura was slain by __waffle using \u00a7b[\u00a7oCake Stick\u00a7b]",
+        "session": 6
+      }
+    ],
+    "tokens": [
+      0,
+      0,
+      8,
+      1,
+      1,
+      5
+    ],
+    "lives": [
+      3,
+      2,
+      1,
+      2,
+      2,
+      1
+    ],
+    "tasks": [
+      {
+        "name": "30",
+        "description": "You are now the server's \"sugar\" seller. You must sell \"sugar\" to at least 3 players.",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "33",
+        "description": "Make granite your entire identity for the next hour.",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "10",
+        "description": "Build a statue of a peaceful minecraft mob near spawn (size is up to your discretion). If asked, claim that it is a Pok\u00e9mon/mystical being of sorts.",
+        "difficulty": 0,
+        "session": 2
+      },
+      {
+        "name": "17",
+        "description": "[SL] Be {receiver}'s hype person for the next 30 minutes and don't get called out. If you get called out, switch to any other player and reset the timer, or fail the task (your choice).",
+        "difficulty": 0,
+        "session": 2
+      },
+      {
+        "name": "revenge",
+        "description": "Say a line/lyric from Captain Sparklez's \"Revenge\" in at least 3 different conversations. Each line/lyric must be different for each conversation. If someone calls you out, that conversation doesn't count.",
+        "difficulty": 0,
+        "session": 2
+      },
+      {
+        "name": "pyramid",
+        "description": "Start a pyramid scheme. You must get players to give you tokens and promise them an even greater return. To fund this, take tokens from other players while promising the same thing. You succeed when you have scammed at least 5 players.",
+        "difficulty": 1,
+        "session": 3
+      },
+      {
+        "name": "parkour",
+        "description": "Build a 25-block parkour course with {player}, and compete for the fastest time between the two of you. You should have a maximum of 3 attempts each.",
+        "difficulty": 3,
+        "session": 3
+      },
+      {
+        "name": "89",
+        "description": "Repeatedly fire arrows from an un-enchanted bow at someone until they start blocking. If you kill them, you also succeed.",
+        "difficulty": 2,
+        "session": 3
+      },
+      {
+        "name": "82",
+        "description": "Get any yellow name to team with you (you may tell them about this task). They must then kill any player of choice with your help. They must either get the kill credit or deal a significant amount of damage for you to succeed.",
+        "difficulty": 2,
+        "session": 3
+      },
+      {
+        "name": "fakeproduct",
+        "description": "Come up with a completely fake product and do a sponsored segment for it (like a YouTube video) and sell it to at least 3 players",
+        "difficulty": 2,
+        "session": 4
+      },
+      {
+        "name": "explosive",
+        "description": "Attack a player with an explosive of any type - bed, respawn anchor, tnt, etc. It doesn't have to kill them for you to succeed.",
+        "difficulty": 2,
+        "session": 4
+      },
+      {
+        "name": "sandtrap",
+        "description": "Make a sand trap and get someone to fall in it. It's up to you whether the drop should kill them or not.",
+        "difficulty": 2,
+        "session": 4
+      },
+      {
+        "name": "gaslightfriendship",
+        "description": "Gaslight as many players as you can into not trusting each other. You pass the task if you manage to get at least one player to say something bad about their friend.",
+        "difficulty": 2,
+        "session": 4
+      },
+      {
+        "name": "villager",
+        "description": "Act like a villager until someone gives you an emerald. You do not need to do anything hostile for this task.",
+        "difficulty": 2,
+        "session": 4
+      },
+      {
+        "name": "casino",
+        "description": "Set up a casino and get players to bet tokens for a prize. As with all casinos, all your games must be rigged somehow. How you rig it is up to you, you may use redstone or any other method. You pass when you scam at least 5 tokens out of 3 players.",
+        "difficulty": 0,
+        "session": 6
+      },
+      {
+        "name": "58",
+        "description": "Kill the Wither with a friend. Exploits such as trapping the Wither under bedrock are not allowed.",
+        "difficulty": 1,
+        "session": 6
+      }
+    ],
+    "name": "Nitura",
+    "sessionTasks": 0,
+    "currentTask": "-1",
+    "shopping": false,
+    "punishments": [],
+    "zombie": false,
+    "shop": false,
+    "nextTask": "-1",
+    "taskDescription": "The next time someone goes to the altar to submit their task, threaten them into choosing a hard task for their second task of the session. You may use any means necessary to scare or force them into doing this."
+  },
+  "Zylphys": {
+    "deaths": [
+      {
+        "time": 1720540891,
+        "death_message": "Zylphys was doomed to fall",
+        "session": 6
+      },
+      {
+        "time": 1720541109,
+        "death_message": "Zylphys was slain by LightingLord854",
+        "session": 6
+      }
+    ],
+    "tokens": [
+      0,
+      20,
+      11,
+      0,
+      0,
+      4
+    ],
+    "lives": [
+      3,
+      3,
+      2,
+      3,
+      3,
+      0
+    ],
+    "tasks": [
+      {
+        "name": "Praise",
+        "description": "In 5 different conversations with 5 different people, praise the effort that has gone into making the secret life server",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "62",
+        "description": "[SL] Build a TNT cannon that successfully hits or scares off another player from at least 50 blocks away.",
+        "difficulty": 1,
+        "session": 1
+      },
+      {
+        "name": "78",
+        "description": "Trap another player. It can be placed in a base or elsewhere, the only condition is it must kill another player without that player's prior knowledge of said trap.",
+        "difficulty": 2,
+        "session": 2
+      },
+      {
+        "name": "trouble",
+        "description": "Get someone to say something along the lines of \"is trouble brewing around here?\".",
+        "difficulty": 0,
+        "session": 2
+      },
+      {
+        "name": "14",
+        "description": "You must lie about everything in-game for the next hour.",
+        "difficulty": 0,
+        "session": 2
+      },
+      {
+        "name": "presidentassassin",
+        "description": "Assassinate the president.",
+        "difficulty": 3,
+        "session": 3
+      },
+      {
+        "name": "65",
+        "description": "your life is now tied to scarwe. if they die in this session, you must kill yourself immediately after. you fail if they die, or if someone suspects there's a link between the two of you. telling scarwe this task won't cause you to fail. you're not allowed to manually choose to fail this task.",
+        "difficulty": 1,
+        "session": 3
+      },
+      {
+        "name": "56",
+        "description": "Kill the Ender Dragon with a friend (you must re-spawn it if already killed).",
+        "difficulty": 1,
+        "session": 4
+      },
+      {
+        "name": "guessthebuild",
+        "description": "Guess the build. Build a bell near spawn and gather some players to guess what you're building. You cannot give hints nor write signs that describe the build. You fail if nobody guesses the build within 3 minutes of starting, and you only have one attempt.",
+        "difficulty": 0,
+        "session": 4
+      },
+      {
+        "name": "39",
+        "description": "[SL] Make a pun at every opportunity during a conversation. You must make at least 3 successful puns within a 5 minute time-span.",
+        "difficulty": 0,
+        "session": 5
+      },
+      {
+        "name": "specific",
+        "description": "Be super specific for the next hour. Say everything in extreme detail, no matter how obvious and simple it is.",
+        "difficulty": 0,
+        "session": 5
+      },
+      {
+        "name": "helpjon",
+        "description": "Gear Spectral_Blue up with as much diamond/enchanted gear as you like. At a bare minimum, you must give him a diamond pickaxe, axe and shovel. You may provide him with more items if you like.",
+        "difficulty": 0,
+        "session": 6
+      },
+      {
+        "name": "silence",
+        "description": "Walk into a conversation and just stand awkwardly, completely in silence. You pass the task when someone notices that you haven't said anything.",
+        "difficulty": 0,
+        "session": 6
+      }
+    ],
+    "name": "Zylphys",
+    "sessionTasks": 0,
+    "currentTask": "-1",
+    "shopping": false,
+    "punishments": [],
+    "zombie": false,
+    "shop": false,
+    "taskDescription": "Walk into a conversation and just stand awkwardly, completely in silence. You pass the task when someone notices that you haven't said anything.",
+    "nextTask": "-1"
+  },
+  "FizzyKinkajou49": {
+    "deaths": [],
+    "tokens": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      2
+    ],
+    "lives": [
+      3,
+      3,
+      2,
+      2,
+      3,
+      2
+    ],
+    "tasks": [
+      {
+        "name": "8",
+        "description": "Do the worst trade you could possibly do with someone.",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "45",
+        "description": "Actively involve yourself in 3 conversations with DejiLikesFizz. For every conversation, mimic all their in-game movements without being caught. You fail if someone calls you out even once.",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "53",
+        "description": "You are Daisyrebelle's terrible butler for the next hour. You must do anything they say, but get some aspect of it wrong. You can tell them you are their butler, but not anything else, and if you're figured out you fail.",
+        "difficulty": 0,
+        "session": 2
+      },
+      {
+        "name": "17",
+        "description": "[SL] Be {receiver}'s hype person for the next 30 minutes and don't get called out. If you get called out, switch to any other player and reset the timer, or fail the task (your choice).",
+        "difficulty": 0,
+        "session": 2
+      },
+      {
+        "name": "fizzyhard",
+        "description": "Find any green name on the server, and become their complete servant for the next 2 hours. You may only do what they tell you to do, and if you're figoured out - you fail.",
+        "difficulty": 1,
+        "session": 3
+      },
+      {
+        "name": "theletterL",
+        "description": "For the next hour, you are now terrified of the letter L. If anyone near you says a word beginning with it, you must scream in fear and not speak for the next 10 seconds.",
+        "difficulty": 0,
+        "session": 3
+      },
+      {
+        "name": "skibidi",
+        "description": "Naturally include as much Gen A slang as possible into a conversation (e.g. skibidi, rizz, fanum tax) without getting caught. You pass if you go an entire conversation with nobody calling you out.",
+        "difficulty": 0,
+        "session": 4
+      },
+      {
+        "name": "microphone",
+        "description": "Fully convince someone their mic is off when it's not. You have to get them to log off in an attempt to fix the issue to pass the task.",
+        "difficulty": 0,
+        "session": 4
+      },
+      {
+        "name": "duolingo",
+        "description": "Try to teach LightingLord854 five different phrases in another language. If he gets even one wrong on any attempt, you have permission to kill him. You pass this task only if you kill LightingLord.",
+        "difficulty": 0,
+        "session": 5
+      },
+      {
+        "name": "secretroom",
+        "description": "Add a secret room in the base of someone you're not teamed with and move your stuff there. You pass if you move at least half of your stuff and aren't caught in the process.",
+        "difficulty": 0,
+        "session": 5
+      },
+      {
+        "name": "treebuild",
+        "description": "While talking to a player, build a replica of any type of tree without them questioning you.",
+        "difficulty": 0,
+        "session": 6
+      },
+      {
+        "name": "fakerule",
+        "description": "Convince 3 players that a rule you've completely made up is true.",
+        "difficulty": 0,
+        "session": 6
+      }
+    ],
+    "name": "FizzyKinkajou49",
+    "sessionTasks": 0,
+    "currentTask": "-1",
+    "shopping": false,
+    "punishments": [],
+    "zombie": false,
+    "shop": false,
+    "nextTask": "-1",
+    "taskDescription": "Convince 3 players that a rule you've completely made up is true."
+  },
+  "Tal_Doesnt_Exist": {
+    "deaths": [
+      {
+        "time": 1717508142,
+        "death_message": "Tal_Doesnt_Exist drowned",
+        "session": 1
+      },
+      {
+        "time": 1718727272,
+        "death_message": "Tal_Doesnt_Exist drowned",
+        "session": 3
+      },
+      {
+        "time": 1719928165,
+        "death_message": "Tal_Doesnt_Exist hit the ground too hard while trying to escape LightingLord854",
+        "session": 5
+      }
+    ],
+    "tokens": [
+      0,
+      5,
+      1,
+      1,
+      1,
+      0
+    ],
+    "lives": [
+      2,
+      2,
+      2,
+      2,
+      1,
+      1
+    ],
+    "tasks": [
+      {
+        "name": "Musk",
+        "description": "Your entire personality is now how you are angry that Elon Musk ruined twitter.",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "23",
+        "description": "Spy on FizzyKinkajou49 without getting caught for 10 minutes. If you're caught, move to another player.",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "helmet",
+        "description": "Have 3 different people call you out for wearing a helmet. You must take off your helmet when you complete the task.",
+        "difficulty": 0,
+        "session": 2
+      },
+      {
+        "name": "32",
+        "description": "Tell 3 jokes where the punchline is complete nonsense, tricking players into laughing at something they don't understand, and don't get called out. If you get called out, that joke doesn't count.",
+        "difficulty": 0,
+        "session": 2
+      },
+      {
+        "name": "restaurant",
+        "description": "Build a restaurant and serve a player. However, when you give them their food, throw a potion of poison at them.",
+        "difficulty": 0,
+        "session": 3
+      },
+      {
+        "name": "thirdperson",
+        "description": "For the next hour, only refer to yourself in the third person. If you mess up even once, you fail.",
+        "difficulty": 0,
+        "session": 5
+      },
+      {
+        "name": "16",
+        "description": "Give someone a nickname and try to get at least 4 other people to call them by that nickname.",
+        "difficulty": 1,
+        "session": 5
+      },
+      {
+        "name": "scaredytrap",
+        "description": "Get 3 players to be scared of a trap that doesn't actually exist.",
+        "difficulty": 2,
+        "session": 6
+      }
+    ],
+    "name": "Tal_Doesnt_Exist",
+    "sessionTasks": 0,
+    "currentTask": "-1",
+    "shopping": false,
+    "punishments": [
+      "weak2"
+    ],
+    "zombie": false,
+    "shop": false,
+    "nextTask": "-1",
+    "taskDescription": "Get 3 players to be scared of a trap that doesn't actually exist."
+  },
+  "Spectralwraith": {
+    "deaths": [
+      {
+        "time": 1718119150,
+        "death_message": "Spectralwraith was burned to a crisp while fighting scarwe",
+        "session": 2
+      },
+      {
+        "time": 1719324072,
+        "death_message": "Spectralwraith fell from a high place",
+        "session": 4
+      },
+      {
+        "time": 1719326412,
+        "death_message": "Spectralwraith fell from a high place",
+        "session": 4
+      }
+    ],
+    "tokens": [
+      4,
+      10,
+      10,
+      0,
+      0,
+      0
+    ],
+    "lives": [
+      3,
+      2,
+      2,
+      0,
+      0,
+      0
+    ],
+    "tasks": [
+      {
+        "name": "38",
+        "description": "Get accused of doing 2 tasks that you don't actually have (that you've made up).",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "4",
+        "description": "[SL] Listen into another player's conversation then try to have the same conversation with either of them later and get them to claim deja vu.",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "22",
+        "description": "Convince a yellow name your task is to make granite your entire identity for the next hour.",
+        "difficulty": 0,
+        "session": 2
+      },
+      {
+        "name": "50",
+        "description": "For the next hour and a half, you are a serial yapper. Go on random tangents, talk way too much and take control of every conversation by telling random and irrelevant stories.",
+        "difficulty": 0,
+        "session": 2
+      },
+      {
+        "name": "tag",
+        "description": "Win in a game of tag against {player}, {player} and {player}.",
+        "difficulty": 3,
+        "session": 4
+      },
+      {
+        "name": "68",
+        "description": "Before the end of the session, do a 100 block high water bucket clutch in front of everyone on the server. You may reveal this secret without failing. You must take off all armour before performing the clutch. You only get one attempt - no practice runs, and no totems allowed.",
+        "difficulty": 1,
+        "session": 5
+      },
+      {
+        "name": "villager",
+        "description": "Act like a villager until someone gives you an emerald. You do not need to do anything hostile for this task.",
+        "difficulty": 2,
+        "session": 4
+      }
+    ],
+    "name": "Spectralwraith",
+    "sessionTasks": 0,
+    "currentTask": "-1",
+    "shopping": false,
+    "punishments": [],
+    "zombie": false,
+    "shop": false,
+    "taskDescription": "Before the end of the session, do a 100 block high water bucket clutch in front of everyone on the server. You may reveal this secret without failing. You must take off all armour before performing the clutch. You only get one attempt - no practice runs, and no totems allowed.",
+    "nextTask": "-1",
+    "tagged": false
+  },
+  "Spicy_Trombone": {
+    "deaths": [
+      {
+        "time": 1717505804,
+        "death_message": "Spicy_Trombone fell from a high place",
+        "session": 1
+      }
+    ],
+    "tokens": [
+      0,
+      0,
+      6,
+      6,
+      6,
+      6
+    ],
+    "lives": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    "tasks": [
+      {
+        "name": "52",
+        "description": "You have a new catchphrase for the next hour. In any predicament, you must say \"What would Jon do?\", and don't get called out. If you get called out, reset the timer or fail the task (your choice).",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "36",
+        "description": "Build a plank and get someone to walk/fall off it.",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "fakejumpscare",
+        "description": "Constistently make terrible (not scary) jumpscares, and afterwards ask \"did that scare you?\", until people start making a joke out of it.",
+        "difficulty": 0,
+        "session": 3
+      },
+      {
+        "name": "20",
+        "description": "Move 5 people's chests at least once. If someone calls you out, that person doesn't count.",
+        "difficulty": 0,
+        "session": 3
+      }
+    ],
+    "name": "Spicy_Trombone",
+    "sessionTasks": 0,
+    "currentTask": "-1",
+    "shopping": false,
+    "punishments": [],
+    "zombie": false,
+    "shop": false,
+    "taskDescription": "Move 5 people's chests at least once. If someone calls you out, that person doesn't count.",
+    "nextTask": "-1"
+  },
+  "flywiththenight": {
+    "deaths": [
+      {
+        "time": 1717518559,
+        "death_message": "flywiththenight was slain by Phantom",
+        "session": 1
+      },
+      {
+        "time": 1720541620,
+        "death_message": "flywiththenight was killed by [Intentional Game Design]",
+        "session": 6
+      }
+    ],
+    "tokens": [
+      6,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "lives": [
+      3,
+      3,
+      3,
+      3,
+      3,
+      2
+    ],
+    "tasks": [
+      {
+        "name": "35",
+        "description": "Completely agree with everything that everyone says for the next hour (this does not mean do what people say, just be a very nice and agreeable person). If someone calls you out, reset the timer or fail the task (your choice).",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "29",
+        "description": "You must figure out OperationDusty's task and ensure they fail it.",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "44",
+        "description": "Leave at least 3 conversations in-game in a creative manner. For example, instead of walking away, dig straight down until you're out of ear-distance of any interlocutors. You may leave conversations normally, but this won't count towards your goal.",
+        "difficulty": 0,
+        "session": 2
+      },
+      {
+        "name": "7",
+        "description": "Steal 4 people's beds without being caught and make a shrine out of them. If you're caught, you fail the task.",
+        "difficulty": 0,
+        "session": 2
+      },
+      {
+        "name": "fishing",
+        "description": "Craft a fishing rod and use it to steal the shop keeper villager at spawn, without getting caught. Hide it somewhere and start a token black market, successfully selling at least 3 items to 3 different players.",
+        "difficulty": 3,
+        "session": 3
+      },
+      {
+        "name": "rapbattle",
+        "description": "Participate in a rap battle against {player} and have a crowd of players vote whose performance was better.",
+        "difficulty": 3,
+        "session": 3
+      },
+      {
+        "name": "ghost",
+        "description": "A fallen player is your ghostly angel, and they will secretly guide you for the next 90 minutes. You must do everything they say. You fail if anyone asks if you're talking to someone else. They will soon contact you through ethereal means.",
+        "difficulty": 0,
+        "session": 5
+      }
+    ],
+    "name": "flywiththenight",
+    "sessionTasks": 0,
+    "currentTask": "-1",
+    "shopping": false,
+    "punishments": [],
+    "zombie": false,
+    "shop": false,
+    "taskDescription": "Laugh at someone's joke for an entire minute straight without them telling you stop laughing.",
+    "nextTask": "-1"
+  },
+  "Yoavis": {
+    "deaths": [],
+    "tokens": [
+      12,
+      12,
+      12,
+      12,
+      12,
+      12
+    ],
+    "lives": [
+      3,
+      3,
+      3,
+      3,
+      3,
+      3
+    ],
+    "tasks": [
+      {
+        "name": "26",
+        "description": "Hide mobs across 3 players' bases without being caught (the mob sound should still be audible). If someone calls you out, that person doesn't count.",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "12",
+        "description": "Ask someone what they think a good task would be, their response is now your task. If they don't give you an idea, you may ask someone else.",
+        "difficulty": 0,
+        "session": 1
+      },
+      {
+        "name": "34",
+        "description": "Go mining with a partner, and excitedly call them over at least 3 times for a big ore find. When they arrive and see nothing, blame a creeper explosion for the missing ore.",
+        "difficulty": 0,
+        "session": 2
+      }
+    ],
+    "name": "Yoavis",
+    "sessionTasks": 0,
+    "currentTask": "-1",
+    "shopping": false,
+    "punishments": [],
+    "zombie": false,
+    "shop": false,
+    "taskDescription": "Go mining with a partner, and excitedly call them over at least 3 times for a big ore find. When they arrive and see nothing, blame a creeper explosion for the missing ore.",
+    "nextTask": "-1"
+  },
+  "MrKoolBuckzz": {
+    "deaths": [
+      {
+        "time": 1718714306,
+        "death_message": "MrKoolBuckzz was slain by Spider",
+        "session": 3
+      },
+      {
+        "time": 1718716703,
+        "death_message": "MrKoolBuckzz was slain by RavingRaven43453",
+        "session": 3
+      },
+      {
+        "time": 1718717937,
+        "death_message": "MrKoolBuckzz was slain by scarwe using \u00c2\u00a7b[\u00c2\u00a7oScarlett Slayer\u00c2\u00a7b]",
+        "session": 3
+      }
+    ],
+    "tokens": [
+      0,
+      4,
+      4,
+      4,
+      4
+    ],
+    "lives": [
+      3,
+      0,
+      0,
+      0,
+      0
+    ],
+    "tasks": [
+      {
+        "name": "27",
+        "description": "Convince a yellow name your task is to repeat everything that they say.",
+        "difficulty": 0,
+        "session": 2
+      },
+      {
+        "name": "15",
+        "description": "[SL] Call people anything other than their name/username for the next hour.",
+        "difficulty": 0,
+        "session": 2
+      },
+      {
+        "name": "11",
+        "description": "Convince someone that you have the same task as them.",
+        "difficulty": 0,
+        "session": 3
+      },
+      {
+        "name": "80",
+        "description": "Repeatedly attack a player until they block you with a shield. If you kill them, you also succeed.",
+        "difficulty": 2,
+        "session": 3
+      },
+      {
+        "name": "tag",
+        "description": "Win in a game of tag against {player}, {player} and {player}.",
+        "difficulty": 3,
+        "session": 3
+      }
+    ],
+    "name": "MrKoolBuckzz",
+    "sessionTasks": 0,
+    "currentTask": "-1",
+    "shopping": false,
+    "punishments": [],
+    "zombie": false,
+    "nextTask": "-1",
+    "taskDescription": "Repeatedly attack a player until they block you with a shield. If you kill them, you also succeed.",
+    "shop": false,
+    "tagged": false
+  },
+  "SigmaPilled": {
+    "deaths": [
+      {
+        "time": 1718122395,
+        "death_message": "SigmaPilled was slain by scarwe using \u00c2\u00a7f[\u00c2\u00a7oScarlett Slayer\u00c2\u00a7f]",
+        "session": 2
+      },
+      {
+        "time": 1718727200,
+        "death_message": "SigmaPilled was slain by scarwe using \u00c2\u00a7b[\u00c2\u00a7oscarwe\u00c2\u00a7b]",
+        "session": 3
+      },
+      {
+        "time": 1719928177,
+        "death_message": "SigmaPilled was shot by LightingLord854 using \u00a7b[\u00a7oOrion MKII\u00a7b]",
+        "session": 5
+      }
+    ],
+    "tokens": [
+      0,
+      6,
+      1,
+      2,
+      17
+    ],
+    "lives": [
+      2,
+      1,
+      1,
+      0,
+      1
+    ],
+    "tasks": [
+      {
+        "name": "treasurer",
+        "description": "Ask someone why Keanu is marked as Treasurer on the Discord when he's clearly President. You win when someone tells you the correct answer (stupid guild stuff).",
+        "difficulty": 0,
+        "session": 2
+      },
+      {
+        "name": "tag",
+        "description": "Win in a game of tag against {player}, {player} and {player}.",
+        "difficulty": 3,
+        "session": 3
+      },
+      {
+        "name": "trivia",
+        "description": "Build a place to host a trivia game and get at least 3 players to participate.",
+        "difficulty": 3,
+        "session": 3
+      },
+      {
+        "name": "teacher",
+        "description": "Successfully teach someone a Minecraft technique that they didn't know. You succeed when they successfully pull it off.",
+        "difficulty": 0,
+        "session": 3
+      },
+      {
+        "name": "elements",
+        "description": "Deal damage to a player in 4 different, creative ways relating to the elements (Fire, Water, Earth, and Air).",
+        "difficulty": 2,
+        "session": 4
+      },
+      {
+        "name": "tnt",
+        "description": "Deal damage to a player using the explosion damage from a TNT.",
+        "difficulty": 2,
+        "session": 4
+      }
+    ],
+    "name": "SigmaPilled",
+    "sessionTasks": 0,
+    "currentTask": "-1",
+    "shopping": false,
+    "punishments": [],
+    "zombie": true,
+    "nextTask": "-1",
+    "taskDescription": "Deal damage to a player using the explosion damage from a TNT.",
+    "shop": false,
+    "tagged": false
+  },
+  "jjorj": {
+    "deaths": [],
+    "tokens": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "lives": [
+      3,
+      3,
+      3,
+      3,
+      3
+    ],
+    "tasks": [
+      {
+        "name": "votingbooth",
+        "description": "Two people will soon announce that they are running against each other for the position of president in the server. Your task is to build a voting booth and convince them to use it to count the votes. You fail if they refuse to use it for the election.",
+        "difficulty": 3,
+        "session": 2
+      }
+    ],
+    "name": "jjorj",
+    "sessionTasks": 0,
+    "currentTask": "-1",
+    "shopping": false,
+    "punishments": [],
+    "zombie": false,
+    "nextTask": "-1",
+    "taskDescription": "Two people will soon announce that they are running against each other for the position of president in the server. Your task is to build a voting booth and convince them to use it to count the votes. You fail if they refuse to use it for the election.",
+    "shop": false
+  },
+  "Whitbee": {
+    "deaths": [
+      {
+        "time": 1718717148,
+        "death_message": "Whitbee drowned",
+        "session": 3
+      }
+    ],
+    "tokens": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "lives": [
+      3,
+      2,
+      2,
+      2,
+      2
+    ],
+    "tasks": [
+      {
+        "name": "11",
+        "description": "Convince someone that you have the same task as them.",
+        "difficulty": 0,
+        "session": 2
+      },
+      {
+        "name": "fakeyellowbait",
+        "description": "Bait a yellow player into thinking that your task is to bait a yellow player.",
+        "difficulty": 0,
+        "session": 3
+      }
+    ],
+    "name": "Whitbee",
+    "sessionTasks": 0,
+    "currentTask": "-1",
+    "shopping": false,
+    "punishments": [],
+    "zombie": false,
+    "nextTask": "-1",
+    "taskDescription": "Bait a yellow player into thinking that your task is to bait a yellow player.",
+    "shop": false
+  },
+  "J0shuaW": {
+    "deaths": [
+      {
+        "time": 1719930687,
+        "death_message": "J0shuaW fell from a high place",
+        "session": 5
+      }
+    ],
+    "tokens": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "lives": [
+      3,
+      3,
+      3,
+      2,
+      2
+    ],
+    "tasks": [
+      {
+        "name": "32",
+        "description": "Tell 3 jokes where the punchline is complete nonsense, tricking players into laughing at something they don't understand, and don't get called out. If you get called out, that joke doesn't count.",
+        "difficulty": 0,
+        "session": 5
+      }
+    ],
+    "name": "J0shuaW",
+    "sessionTasks": 0,
+    "currentTask": "-1",
+    "shopping": false,
+    "punishments": [],
+    "zombie": false,
+    "nextTask": "-1",
+    "taskDescription": "Stay close enough to hear another player for a full minute without them noticing you're there.",
+    "shop": false
+  },
+  "__waffle": {
+    "deaths": [
+      {
+        "time": 1718727846,
+        "death_message": "__waffle was killed",
+        "session": 3
+      }
+    ],
+    "tokens": [
+      0,
+      0,
+      0,
+      0,
+      5
+    ],
+    "lives": [
+      3,
+      0,
+      0,
+      0,
+      1
+    ],
+    "tasks": [
+      {
+        "name": "blockplacer",
+        "description": "Place as many excess blocks as you can around someone's base without them noticing. You succeed if you place a minimum of 20 random blocks around their base.",
+        "difficulty": 0,
+        "session": 2
+      },
+      {
+        "name": "badteacher",
+        "description": "You are now a very terrible teacher. Teach at least 3 people a made-up technique in Minecraft, and get them to attempt it. You succeed if they try and nothing happens/they get harmed from it.",
+        "difficulty": 0,
+        "session": 3
+      },
+      {
+        "name": "17",
+        "description": "[SL] Be {receiver}'s hype person for the next 30 minutes and don't get called out. If you get called out, switch to any other player and reset the timer, or fail the task (your choice).",
+        "difficulty": 0,
+        "session": 3
+      },
+      {
+        "name": "stealseller",
+        "description": "Steal something from someone's base without them noticing and then sell it back to them.",
+        "difficulty": 2,
+        "session": 6
+      }
+    ],
+    "name": "__waffle",
+    "sessionTasks": 0,
+    "currentTask": "-1",
+    "shopping": false,
+    "punishments": [
+      "weak1"
+    ],
+    "zombie": true,
+    "nextTask": "-1",
+    "taskDescription": "Steal something from someone's base without them noticing and then sell it back to them.",
+    "shop": false
+  },
+  "Spore__": {
+    "deaths": [],
+    "tokens": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "lives": [
+      3,
+      3,
+      3,
+      3,
+      3
+    ],
+    "tasks": [
+      {
+        "name": "37",
+        "description": "[sl] with a book and quill, write a really poorly-written poem for scarwe and get them to sign it.",
+        "difficulty": 0,
+        "session": 2
+      },
+      {
+        "name": "fakestory",
+        "description": "Tell a completely fake story and convince someone that you've told that story before, and that they were there when it happened.",
+        "difficulty": 0,
+        "session": 2
+      },
+      {
+        "name": "9",
+        "description": "Jumpscare another player.",
+        "difficulty": 0,
+        "session": 2
+      }
+    ],
+    "name": "Spore__",
+    "sessionTasks": 0,
+    "currentTask": "-1",
+    "shopping": false,
+    "punishments": [],
+    "zombie": false,
+    "nextTask": "-1",
+    "taskDescription": "Jumpscare another player.",
+    "shop": false
+  },
+  "BandSH": {
+    "deaths": [
+      {
+        "time": 1719327842,
+        "death_message": "BandSH was slain by Phantom",
+        "session": 4
+      }
+    ],
+    "tokens": [
+      0,
+      12,
+      12,
+      12
+    ],
+    "lives": [
+      2,
+      1,
+      1,
+      1
+    ],
+    "tasks": [
+      {
+        "name": "mourner",
+        "description": "You must mourn the next person who dies on the server to an extreme extent (even if it isn't a permanent death). Build a memorial, give players flowers, and set up a large event commemorating their death. You pass after the event ends.",
+        "difficulty": 0,
+        "session": 4
+      },
+      {
+        "name": "holiday",
+        "description": "Make up a holiday, then convince another player it is an actual holiday and get them to celebrate it with you. If they don't believe you, you can try with another player.",
+        "difficulty": 2,
+        "session": 4
+      },
+      {
+        "name": "terriblehero",
+        "description": "Cause chaos, but become the hero in that bad situation which you caused yourself. (e.g. put lava on someone and \"save\" them by placing water on them).",
+        "difficulty": 2,
+        "session": 6
+      }
+    ],
+    "name": "BandSH",
+    "sessionTasks": 0,
+    "currentTask": "-1",
+    "shopping": false,
+    "punishments": [],
+    "tagged": false,
+    "zombie": false,
+    "nextTask": "-1",
+    "taskDescription": "Cause chaos, but become the hero in that bad situation which you caused yourself. (e.g. put lava on someone and \"save\" them by placing water on them).",
+    "shop": false
+  }
+}
