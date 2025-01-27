@@ -897,7 +897,7 @@ interface LargeImageProps {
  * @return JSX Component of the large image.
  */
 const LargeImage: Component<LargeImageProps> = (props) => {
-  const image_path = () => `assets/minecraft/secretlife/gallery/large/${props.large_image()}.png`;
+  const image_path = () => `/assets/minecraft/secretlife/gallery/large/${props.large_image()}.png`;
 
   const increment_image = (e: MouseEvent, direction: boolean) => {
     e.stopPropagation();
@@ -1083,7 +1083,7 @@ const SLPluginInfo: Component = () => {
       </p>
       <p>
         The Secret Life plugin was used to manage <LivesText> lives</LivesText>, distribute tasks, gather player data and house a variety of other custom features that can be found on the&nbsp;
-        <a style={styles.a} href={"https://github.com/scarlettmparker/Secret-Life"} target="_blank">GitHub repository</a>.
+        <a class={styles.a} href={"https://github.com/scarlettmparker/Secret-Life"} target="_blank">GitHub repository</a>.
       </p>
       <p>
         Developed in Java over the course of a few weeks, this plugin can be used on any 1.15+ Minecraft server that supports Spigot plugins.
@@ -1125,7 +1125,7 @@ const SLGallery: Component<SLGalleryProps> = (props) => {
       <div class={styles.image_wrapper}>
         <img
           class={styles.image}
-          src={`assets/minecraft/secretlife/gallery/small/${props.current_image()}.png`}
+          src={`/assets/minecraft/secretlife/gallery/small/${props.current_image()}.png`}
           draggable={false}
           onclick={() => props.set_large_image(props.current_image())}
         ></img>
@@ -1217,7 +1217,7 @@ interface SLTasksInfoProps {
  */
 const SLTasksInfo: Component<SLTasksInfoProps> = (props) => {
   const [tasks, set_tasks] = createSignal<Task[]>([]);
-  const tasks_path = "assets/minecraft/secretlife/serverdata/taskbase.json";
+  const tasks_path = "/assets/minecraft/secretlife/serverdata/taskbase.json";
 
   let task_description!: HTMLSpanElement;
 
@@ -1341,7 +1341,7 @@ const SLPlayerStats: Component<SLPlayerStatsProps> = (props) => {
   const [current_task, set_current_task] = createSignal(0);
   const player = () => players()[props.current_player()];
 
-  const info_path = "assets/minecraft/secretlife/serverdata/playerbase.json";
+  const info_path = "/assets/minecraft/secretlife/serverdata/playerbase.json";
   let death_description!: HTMLSpanElement;
   let task_description!: HTMLSpanElement;
 

@@ -4,7 +4,8 @@ import solidPlugin from 'vite-plugin-solid';
 export default defineConfig({
   plugins: [solidPlugin()],
   server: {
-    port: 3000,
+    host: "0.0.0.0",
+    port: 8082,
     proxy: {
       '/api/mojang': {
         target: 'https://api.mojang.com',
@@ -16,7 +17,13 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/session/, ''),
       }
-    }
+    },
+    allowedHosts: ["scarlettparker.co.uk"],
+  },
+  preview: {
+    host: "0.0.0.0",
+    port: 8082,
+    allowedHosts: ["scarlettparker.co.uk"]
   },
   build: {
     target: 'esnext',

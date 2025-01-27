@@ -24,7 +24,7 @@ p:last-child {
 
 @font-face {
   font-family: "Reo Sans";
-  src: url("assets/minecraft/fonts/Reo Sans Light.otf");
+  src: url("/assets/minecraft/fonts/Reo Sans Light.otf");
 }
 
 .pixi_canvas_wrapper {
@@ -43,7 +43,7 @@ p:last-child {
   z-index: -2;
   position: fixed;
   background-color: #272121;
-  background-image: url('assets/minecraft/images/background.png');
+  background-image: url('/assets/minecraft/images/background.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
