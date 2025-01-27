@@ -120,7 +120,7 @@
   .correct_button {
     background-color: var(--button-text);
     color: var(--button-background);
-    border: 1px solid var(--button-text);
+    border: 1px solid rgba(0, 0, 0, 0.4);
   }
 
   .button:disabled {
